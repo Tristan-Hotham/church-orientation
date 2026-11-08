@@ -1,0 +1,143 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\newfontfamily\headfont{Inter}[UprightFont=*-ExtraBold,BoldFont=*-ExtraBold,Extension=.otf,Path=/usr/share/fonts/opentype/inter/]
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx,booktabs,float,caption,array,xcolor,longtable}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage[round]{natbib}
+\usepackage{setspace}
+\setstretch{1.05}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\titleformat{\section}{\headfont\Large}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\headfont\large}{\thesubsection}{0.8em}{}
+\captionsetup{font=small,labelfont=bf}
+\urlstyle{same}
+\hypersetup{pdftitle={Which Way Do the UK's Churches Face?},pdfauthor={Tristan Hotham}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Which Way Do the UK's Churches Face?\par}
+\vspace{0.4em}
+{\large The axes of {{n.measured|int}} church footprints from OpenStreetMap,\\and a test of the patron saint's sunrise\par}
+\vspace{1.2em}
+{\large Tristan Hotham\par}
+\vspace{0.3em}
+{\small Independent researcher\\
+ORCID: 0000-0003-4931-9349\\
+DOI: \href{https://doi.org/10.5281/zenodo.24052501}{10.5281/zenodo.24052501}\par}
+\vspace{0.8em}
+2026
+\end{center}
+
+\begin{quote}
+\small
+\begin{center}\textbf{Abstract}\end{center}
+Christian churches are traditionally built facing east, but most turn a few degrees from it, and a long-standing explanation holds that the line was set towards sunrise on the patron saint's feast day. I measure the long axis of every church footprint in OpenStreetMap for the United Kingdom that is clearly longer than it is wide ({{n.measured|int}} buildings), as the long side of the minimum-area enclosing rectangle in a local true-north frame, and join saints, dates and listing grades from Wikidata. {{all.within10|f1}}\% of all churches lie within 10° of due east, but {{old.within10|f1}}\% of the historic parish churches (dated before 1540, or undated and listed Grade I, II* or category A), against {{by_period.victorian.within10|f1}}\% of churches dated 1800 to 1913, {{by_period.modern.within10|f1}}\% of those from 1914 and {{by_denom.nonconformist.within10|f1}}\% of Free Church chapels ({{chance10|f1}}\% would be expected by chance). The patron saint's day explains nothing: across {{feast.old.n|int}} historic churches with a fixed-feast saint, the mean absolute difference between axis and feast-day sunrise ({{feast.old.mean_abs_err|f1}}°, with Julian-calendar dates for medieval foundations) is no smaller than when the saints are shuffled at random ({{feast.old.perm_mean|f1}}°, permutation p = {{feast.old.p_value|f2}}); churches of midsummer and midwinter saints point the same way ({{summer_winter.summer_mean_bearing|f1}}° and {{summer_winter.winter_mean_bearing|f1}}°) although their feast-day sunrises differ by {{summer_winter.pred_gap|f1}}°. Historic churches lean north of east by {{old.mean_dev_eastish_abs|f1}}° on average, more in the west of England and Wales than in the east. In towns, churches built from 1800 onwards follow the local street grid more often than east.
+
+\textbf{Keywords:} church orientation; archaeoastronomy; OpenStreetMap; Wikidata; patron saints; medieval churches; urban form
+\end{quote}
+
+\section{Introduction}
+Orientation, the setting of a church with its altar to the east, is one of the most widespread conventions of Christian building. Yet the axes of English parish churches rarely point exactly east. Since the nineteenth century a popular explanation has been that the builders laid out the axis at dawn on the day of the church's patron saint, so that a church of a midsummer saint would turn north of east and one of a midwinter saint south of it. \citet{alicunich} measured 143 major churches built between the mid eleventh and late twelfth centuries; they found no support for alignment by magnetic compass and concluded that the patron-saint sunrise could account for up to 43\% of their sample if sunrise and sunset are both allowed. \citet{hinton} surveyed about 1,500 rural churches and found that churches of summer and winter saints face in the same directions, with a difference in mean alignment of about 10° between the west and east of England. \citet{furuhashi} measured entrance bearings of 114 churches in Milan from OpenStreetMap and found a westward tendency (the entrance opposite an eastern altar) moderated by the urban fabric.
+
+OpenStreetMap now holds the outlines of tens of thousands of church buildings in the United Kingdom, and Wikidata links many of them to their patron saint, date and heritage listing. This allows the question to be asked of almost every church at once, with a test that does not depend on choosing a sample: does knowing the saint help to predict the axis? The study also asks how much churches vary, whether older churches differ from Victorian and modern ones and between denominations, and whether the street grid is a better guide in towns. It accompanies an interactive map of every measured church (\url{{{PAGE}}}).
+
+\section{Data}
+\textbf{Footprints.} Every OpenStreetMap \citep{osm} element in the United Kingdom tagged \texttt{building=church}, \texttt{cathedral} or \texttt{chapel} ({{n.polygons_church_tag|int}} polygons), and every element tagged \texttt{amenity=place\_of\_worship} with \texttt{religion=christian} drawn as another kind of building ({{n.polygons_pow|int}} polygons), was extracted with the QLever SPARQL engine \citep{qlever} over osm2rdf, with name, dedication, denomination, heritage, start date and Wikidata tags. Elements mapped only as points were dropped, since they have no shape. Footprints tagged as houses, schools, offices and similar ({{n.not_church_building|int}}) and footprints lying inside a larger church footprint ({{n.nested|int}}, such as a chapel mapped within a cathedral) were removed.
+
+\textbf{Wikidata.} Wikidata \citep{wikidata} items for church buildings in the United Kingdom give the dedication (P825), inception (P571), heritage designation (P1435) and OpenStreetMap way identifier (P10689). Items were joined to footprints through the OpenStreetMap \texttt{wikidata} tag, then through P10689, then by the item's coordinates lying inside a footprint (or within about 15 m of exactly one); a footprint claimed by two items was left unjoined. {{n.wikidata_joined|int}} of the measured footprints are joined. Wikidata's dedications to Oswald of Worcester were reassigned to Oswald of Northumbria (feast 5 August), since almost all are northern St Oswald churches. Listing grades come from Historic England, Cadw, Historic Environment Scotland and the Northern Ireland record through Wikidata.
+
+\textbf{Saints and feasts.} The dedication is taken from Wikidata where present, otherwise from the OpenStreetMap dedication tag or the name, parsed with the dedication parser of the saints-geography study \citep{saintsgeo}; {{n.with_saint|int}} measured churches have one. Feast days for 69 saints and dedications with a single fixed principal feast were taken from the standard Western calendars (for example 24 June for John the Baptist, 29 June for Peter, 29 September for Michael, 1 November for All Saints, 30 November for Andrew, 6 December for Nicholas and 21 December, the traditional date, for Thomas the Apostle); they are listed in the code. Dedications without one fixed feast (the Holy Trinity, Christ, the Holy Cross, Paul alone, John without a qualifier, and Mary, who is treated separately) are left out of the feast test.
+
+\section{Methods}
+\subsection{The axis}
+Each footprint (the largest polygon of a multipolygon) is projected to a local equirectangular frame about its own centroid, which keeps true north up and distorts lengths by much less than a metre over a building. The minimum-area enclosing rectangle \citep{freeman} gives the axis: the bearing of its long side, folded into 0° to 180° so that the end between north, east and south is read as the east end. The deviation is the bearing minus 90°, negative when the east end turns north. As a check, a second estimate takes the length-weighted dominant direction of the polygon's edges (folded modulo 90° and unfolded to the candidate nearest the rectangle); the two agree within 2° for {{n.rect_edge_agree_2deg|f1}}\% of measured churches. Only footprints whose rectangle is more than {{min_ratio|raw}} times as long as it is wide ({{n.too_square|int}} were too square), with an area of {{min_area|raw}} to {{max_area|int}} m² ({{n.too_small|int}} too small, {{n.too_big|int}} too large), are measured, leaving {{n.measured|int}}.
+
+\subsection{Groups}
+Dates are the earliest of the OpenStreetMap \texttt{start\_date} (years, or centuries read as their middle) and the Wikidata inception, known for {{n.dated|int}} churches, and grouped as medieval (before 1540), 1540 to 1799, 1800 to 1913 and 1914 onwards. Because most churches are undated, a group of historic parish churches is also defined: churches of the Church of England, Church in Wales, Church of Scotland or Scottish Episcopal Church, or with no denomination tagged, that are dated before 1540, or are undated and listed Grade I or II* (England and Wales) or category A (Scotland). There are {{old.n|int}}. Denominations are grouped from the OpenStreetMap tag.
+
+\subsection{The feast-day test}
+For each church with a fixed-feast saint, the predicted azimuth is that of sunrise over a flat horizon at the church's latitude on the feast day: $\cos A = \sin\delta / \cos\varphi$, with the solar declination $\delta$ from the series of \citet{spencer}, ignoring refraction, the sun's semi-diameter and the local horizon. Medieval feasts were kept in the Julian calendar, which by the twelfth century ran seven days behind the solar year (eight in the fourteenth, nine in the fifteenth, ten from 1500). For churches dated before 1753 the feast's Julian date is therefore moved to the Gregorian date of that year before the declination is computed; undated historic churches are taken as founded around 1200 (seven days); later churches use the date as written. The statistic is the mean absolute difference between the axis and the predicted sunrise. Its null distribution comes from 10,000 random permutations of the feast dates among the same churches, each keeping its own latitude and calendar shift; the one-sided p-value is the share of permutations with a mean difference as small as the observed one. Because the test compares the real saints with shuffled ones, it is not affected by the general clustering of churches near east. A second test compares, saint by saint, the mean axis of each saint's historic churches with the mean predicted sunrise (saints with 25 or more churches, axes between 45° and 135°).
+
+\subsection{The street grid}
+For a random sample of {{streets_sample.n|int}} measured churches, the OpenFreeMap \citep{ofm} vector tiles at zoom 14 that cover a 150 m circle around the church were read, and road centrelines from motorways to service roads (paths and tracks excluded) within 150 m were collected. The local grid direction is the length-weighted dominant direction of these segments folded modulo 90°, and a church counts as urban when there are at least {{streets_sample.urban_threshold_m|int}} m of road within the circle. For each church the angle to the grid and the angle to east are folded to 0° to 45° (parallel or square to). Where the grid itself runs at least 15° off east, so that the two can be told apart, the share of churches closer to the grid than to east is reported.
+
+\section{Results}
+\subsection{How much churches vary}
+Figure~\ref{fig:map} shows every measured church. Of all {{n.measured|int}}, {{all.within5|f1}}\% lie within 5° of due east, {{all.within10|f1}}\% within 10° and {{all.within20|f1}}\% within 20°, while {{all.beyond45|f1}}\% are nearer to north and south than to east and west; the median absolute deviation is {{all.median_adev|f1}}°. Among churches within 45° of east, {{all.north_of_east|f1}}\% turn north of it.
+
+\begin{figure}[tbp]\centering\includegraphics[width=0.86\textwidth]{f_map.png}
+\caption{Every measured church as a short line along its axis, coloured by the size of its turn from due east.}\label{fig:map}\end{figure}
+
+\subsection{Age, listing and denomination}
+Age is the strongest divide (Figures~\ref{fig:roses} and \ref{fig:groups}; Table~\ref{tab:groups}). Of the historic parish churches, {{old.within10|f1}}\% lie within 10° of east and {{old.beyond45|f1}}\% beyond 45°, with a median deviation of {{old.median_adev|f1}}°. Churches dated before 1540 are similar ({{by_period.medieval.within10|f1}}\% within 10°); those dated 1540 to 1799 reach {{by_period.early.within10|f1}}\%, 1800 to 1913 {{by_period.victorian.within10|f1}}\% and 1914 onwards {{by_period.modern.within10|f1}}\%. Listing tells the same story: {{by_grade.I.within10|f1}}\% of Grade I churches, {{by_grade.II*.within10|f1}}\% of Grade II*, {{by_grade.II.within10|f1}}\% of Grade II and {{by_grade.none.within10|f1}}\% of churches with no listing found. Anglican churches ({{by_denom.anglican.within10|f1}}\%) are far more often east-facing than Roman Catholic ({{by_denom.catholic.within10|f1}}\%), Church of Scotland ({{by_denom.scotland.within10|f1}}\%) or Free Church buildings ({{by_denom.nonconformist.within10|f1}}\%); the last is barely above the {{chance10|f1}}\% expected from random directions. Among churches dated 1800 onwards, Anglican churches still reach {{by_denom_victorian_modern.anglican.within10|f1}}\%, against {{by_denom_victorian_modern.catholic.within10|f1}}\% for Roman Catholic ones.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_roses.png}
+\caption{Rose diagrams of church axes for four groups.}\label{fig:roses}\end{figure}
+\begin{figure}[tbp]\centering\includegraphics[width=0.92\textwidth]{f_groups.png}
+\caption{Share of churches within 5°, 10° and 20° of due east by date, listing grade and denomination.}\label{fig:groups}\end{figure}
+
+{{TABLE_GROUPS}}
+
+\subsection{The patron saint's day}
+The feast-day hypothesis fails (Table~\ref{tab:feast}). For the {{feast.old.n|int}} historic churches with a fixed-feast saint ({{feast.old.n_saints|int}} saints), the mean absolute difference between axis and feast-day sunrise is {{feast.old.mean_abs_err|f2}}°; with the saints shuffled it is {{feast.old.perm_mean|f2}}° on average, so p = {{feast.old.p_value|f2}}. Only {{feast.old.within3|f1}}\% of these churches lie within 3° of their feast-day sunrise, against {{feast.old.within3_perm|f1}}\% under shuffling. The same holds for churches dated before 1540 (p = {{feast.medieval_dated.p_value|f2}}), for all churches (p = {{feast.all.p_value|f2}}) and for churches dated 1800 onwards (p = {{feast.victorian_modern.p_value|f2}}). For comparison, the mean absolute difference from due east is {{feast.old.east_mean_abs_err|f1}}° for the historic churches.
+
+{{TABLE_FEAST}}
+
+Saint by saint (Figure~\ref{fig:saints}), the predicted sunrise ranges over {{saint_regression.pred_span|f1}}° (from {{saint_regression.pred_range.0|f1}}° to {{saint_regression.pred_range.1|f1}}°), but the mean axes of the {{saint_regression.n_saints|int}} saints' churches span only {{saint_regression.obs_span|f1}}°, and the weighted regression slope of mean axis on predicted sunrise is {{saint_regression.slope|f2}}. Historic churches of midsummer saints (John the Baptist, Peter, Peter and Paul, Botolph, Alban, Etheldreda, Barnabas; n = {{summer_winter.summer_n|int}}) have a mean axis of {{summer_winter.summer_mean_bearing|f1}}°, those of midwinter saints (Thomas, Thomas Becket, Nicholas, John the Evangelist, Stephen, Andrew, Edmund, Catherine, Clement; n = {{summer_winter.winter_n|int}}) {{summer_winter.winter_mean_bearing|f1}}°, a difference of {{summer_winter.obs_gap|f1}}° (Welch t test p = {{summer_winter.p|f2}}) where the hypothesis predicts {{summer_winter.pred_gap|f1}}°. Mary's {{mary.n|int}} historic churches have a mean axis of {{mary.mean_bearing|f1}}°, indistinguishable from all historic churches ({{old_mean_bearing|f1}}°); this lies near the sunrise of the Annunciation ({{mary.feasts.Annunciation (25 Mar).pred|f1}}°) and her Nativity ({{mary.feasts.Nativity of Mary (8 Sep).pred|f1}}°) but not of the Purification ({{mary.feasts.Purification (2 Feb).pred|f1}}°) or Assumption ({{mary.feasts.Assumption (15 Aug).pred|f1}}°), and it cannot distinguish them from a general eastern habit.
+
+\begin{figure}[tbp]\centering\includegraphics[width=0.92\textwidth]{f_saints.png}
+\caption{Mean axis of each saint's historic parish churches against the sunrise on the saint's feast day (Julian dates moved to the solar year of foundation).}\label{fig:saints}\end{figure}
+
+\subsection{A lean north of east, stronger in the west}
+Historic churches within 45° of east turn north of it in {{old.north_of_east|f1}}\% of cases, with a mean deviation of {{old.mean_dev_eastish|f1}}° and a mean axis of {{old_mean_bearing|f1}}°. The lean varies with longitude (Figure~\ref{fig:longitude}): in England and Wales, historic churches west of 3°W average {{lon_slope_old.west_mean|f1}}° (n = {{lon_slope_old.n_west|int}}), those east of the Greenwich meridian {{lon_slope_old.east_mean|f1}}° (n = {{lon_slope_old.n_east|int}}), and those east of 1°E {{lon_east_band.mean_dev|f1}}° (n = {{lon_east_band.n|int}}); the linear slope is {{lon_slope_old.deg_per_deg_lon|f2}}° per degree of longitude (r = {{lon_slope_old.r|f2}}). The direction matches \citet{hinton}, though the size of the difference here is smaller than his 10°.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_longitude.png}
+\caption{Mean deviation of historic parish churches in England and Wales by one-degree band of longitude.}\label{fig:longitude}\end{figure}
+
+\subsection{The street grid}
+In the street sample (Figure~\ref{fig:streets}), urban churches dated 1800 onwards are closer to their street grid than to east in {{streets.urban_victorian_modern.closer_to_grid|f1}}\% of cases where the two differ by at least 15° (n = {{streets.urban_victorian_modern.n_distinct|int}}), against {{streets.urban_old.closer_to_grid|f1}}\% for historic parish churches in towns (n = {{streets.urban_old.n_distinct|int}}) and {{streets.urban_nonconf_catholic.closer_to_grid|f1}}\% for urban Roman Catholic and Free Church buildings (n = {{streets.urban_nonconf_catholic.n_distinct|int}}). Among all urban churches in the sample, the median angle to the grid is {{streets.urban.median_d_grid|f1}}° and to east {{streets.urban.median_d_east|f1}}°; among rural churches, {{streets.rural.median_d_grid|f1}}° and {{streets.rural.median_d_east|f1}}°. Rural churches, too, are closer to their nearest roads than to east in {{streets.rural.closer_to_grid|f1}}\% of such cases, so the association runs both ways: later churches were fitted to existing streets, while lanes and streets were often laid out along an older churchyard. The grid is therefore a plausible cause of orientation only for later churches, and the historic urban sample is small. Figure~\ref{fig:footprints} shows five measured footprints.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_streets.png}
+\caption{Angle of town churches to east (bars) and to the local street grid (line), folded to 0° to 45°.}\label{fig:streets}\end{figure}
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_footprints.png}
+\caption{Five footprints and their measured axes.}\label{fig:footprints}\end{figure}
+
+\section{Limitations}
+The footprint is not the nave. Towers, aisles, transepts, porches and later additions change the enclosing rectangle; for most parish churches the nave and chancel dominate the long axis, but a church whose chancel is set at an angle to its nave (a well-known feature of some churches) is reduced to one compromise axis, and a tower-heavy or cruciform plan can mislead. Mapping quality varies, and some outlines are traced roughly. Dates are sparse and uneven: Wikidata inception can be the foundation of a parish or an earlier church on the site rather than the standing building (Coventry Cathedral, rebuilt on a north to south axis in the twentieth century, carries the inception of its medieval predecessor), and the historic group relies partly on listing grade as a proxy for age. Dedications change over centuries, and the dedication recorded today may not be the one at foundation; many saints have several feasts, and the assumed foundation date for undated churches sets the calendar shift. The horizon is taken as flat; local hills delay sunrise and move its azimuth south, which matters most in the uplands. The street test uses the modern road network and a fixed radius. Finally, a null result for the patron-saint hypothesis does not explain the lean north of east; equinoctial or Easter sunrises, sightings by eye, or local custom all remain possible and cannot be separated with these data.
+
+\section{Conclusion}
+Most historic churches in the UK face within ten degrees of east, later churches much less so, and Free Church chapels almost at random. Whatever set the small turns of the old churches, it was not the sunrise on the patron saint's day: midsummer and midwinter saints face the same way, and the real saints fit the churches no better than shuffled ones. The old churches share a slight lean north of east, larger in the west, while many Victorian and later churches in towns follow their street.
+
+\section*{Data and code availability}
+The interactive map is at \url{{{PAGE}}}. Data and code are at \url{{{REPO}}} and archived with this paper at \url{https://doi.org/10.5281/zenodo.24052501}. The church table is derived from OpenStreetMap and released under the Open Database Licence; Wikidata is CC0; code is MIT licensed; text and figures CC BY 4.0.
+
+\section*{AI statement}
+{{AI}}
+
+\begin{thebibliography}{99}
+\bibitem[Ali and Cunich(2001)]{alicunich} Ali, J. R. and Cunich, P. (2001) The orientation of churches: some new evidence. \textit{The Antiquaries Journal} 81, 155 to 193. \url{https://doi.org/10.1017/S0003581500072188}
+\bibitem[Bast and Buchhold(2017)]{qlever} Bast, H. and Buchhold, B. (2017) QLever: a query engine for efficient SPARQL+text search. In \textit{Proceedings of the 2017 ACM Conference on Information and Knowledge Management (CIKM)}, 647 to 656.
+\bibitem[Freeman and Shapira(1975)]{freeman} Freeman, H. and Shapira, R. (1975) Determining the minimum-area encasing rectangle for an arbitrary closed curve. \textit{Communications of the ACM} 18(7), 409 to 413.
+\bibitem[Furuhashi and Terado(2026)]{furuhashi} Furuhashi, T. and Terado, H. (2026) Between sacred tradition and urban form: an OpenStreetMap-based analysis of church orientation patterns in Milan. \textit{The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences} L-4/W1-2026, 43 to 48. \url{https://doi.org/10.5194/isprs-archives-L-4-W1-2026-43-2026}
+\bibitem[Hinton(2006)]{hinton} Hinton, I. (2006) Church alignment and patronal saint's days. \textit{The Antiquaries Journal} 86, 206 to 226. \url{https://doi.org/10.1017/S0003581500000111}
+\bibitem[Hotham(2026)]{saintsgeo} Hotham, T. (2026) The geography of saints. \url{https://github.com/Tristan-Hotham/saints-geography}
+\bibitem[OpenFreeMap(2026)]{ofm} OpenFreeMap (2026) Free vector tiles (OpenMapTiles schema) from OpenStreetMap data. \url{https://openfreemap.org/}
+\bibitem[OpenStreetMap contributors(2026)]{osm} OpenStreetMap contributors (2026) OpenStreetMap. Open Database Licence. \url{https://www.openstreetmap.org/}
+\bibitem[Spencer(1971)]{spencer} Spencer, J. W. (1971) Fourier series representation of the position of the sun. \textit{Search} 2(5), 172.
+\bibitem[Wikidata(2026)]{wikidata} Wikidata contributors (2026) Wikidata. CC0. \url{https://www.wikidata.org/}
+\end{thebibliography}
+
+\appendix
+\section{Saint by saint}
+{{TABLE_SAINTS}}
+
+\end{document}

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Which way do the UK's churches face?</title>
+<meta name="description" content="{{n.measured|int}} church footprints from OpenStreetMap, measured: how far each turns from due east, by age, denomination and patron saint, on a hand-inked map.">
+<meta property="og:title" content="Which way do the UK's churches face?">
+<meta property="og:description" content="Old churches face east, new ones face the street, and the patron saint's sunrise makes no difference: {{n.measured|int}} church axes measured.">
+<meta property="og:image" content="https://maps.tristanhotham.com/church-orientation/header.png">
+<meta property="og:url" content="https://maps.tristanhotham.com/church-orientation/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=MedievalSharp&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<style>
+:root{
+  --bg:#F6EED8; --panel:#EFE3C4; --fg:#2B2119; --muted:#6E604E; --rule:#E2D3AE; --card:#FBF5E4; --border:#D3C29A;
+  --hot:#A3261B; --cool:#3D6E9E;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --hand:"MedievalSharp","Fraunces",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1612; --panel:#241E18; --fg:#EFE6D4; --muted:#ADA08B; --rule:#3A3128; --card:#211B15; --border:#4D4234; --hot:#E07A6C; --cool:#8FB4DA; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A1612; --panel:#241E18; --fg:#EFE6D4; --muted:#ADA08B; --rule:#3A3128; --card:#211B15; --border:#4D4234; --hot:#E07A6C; --cool:#8FB4DA; color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 18px/1.62 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+.wrap{max-width:720px;margin:0 auto;padding-block:28px 64px}
+a{color:inherit;text-decoration-color:var(--hot);text-underline-offset:3px}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.kicker b{background:#A3261B;color:#fff;padding:5px 8px;font-weight:500}
+.byline{font:400 13px/1.4 var(--mono);color:var(--muted);margin-top:14px}
+h2{font:800 34px/1.04 var(--display);letter-spacing:-.01em;margin:54px 0 10px;text-wrap:balance}
+h2 .n{font:500 13px/1 var(--mono);color:var(--hot);display:block;letter-spacing:.1em;margin-bottom:10px}
+p{margin:0 0 16px}
+.lede::first-letter{font:400 76px/.8 var(--hand);float:left;margin:6px 10px 0 0;color:var(--hot)}
+.src{font:400 12px/1.45 var(--mono);color:var(--muted);margin-top:10px}
+ul.plain{padding-left:20px} ul.plain li{margin:4px 0}
+details{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:10px 0;margin:18px 0;font-size:16px}
+summary{font:500 13px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
+.cta a{font:500 13px/1 var(--mono);text-decoration:none;border:1px solid var(--fg);padding:11px 14px;border-radius:3px}
+.cta a.p{background:#A3261B;border-color:#A3261B;color:#fff}
+footer{border-top:6px double var(--fg);margin-top:56px;padding-top:16px;font:400 13px/1.55 var(--mono);color:var(--muted)}
+footer p{margin:0 0 10px}
+.theme{font:500 12px/1 var(--mono);background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:4px 8px;cursor:pointer;min-height:28px}
+.figure{margin:22px 0}
+.figure img{width:100%;height:auto;display:block;border:1px solid var(--border)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0}
+.stat{border:1px solid var(--border);background:var(--card);padding:10px 12px}
+.stat b{display:block;font:800 30px/1 var(--display);color:var(--hot)}
+.stat span{font:400 12.5px/1.35 var(--mono);color:var(--muted)}
+table.words{border-collapse:collapse;width:100%;font:400 13px/1.35 var(--mono);margin:12px 0}
+table.words th,table.words td{border-bottom:1px solid var(--rule);padding:5px 6px;text-align:left;vertical-align:top}
+table.words th{font-weight:500;color:var(--muted)}
+table.words td.r,table.words th.r{text-align:right}
+.tw{overflow-x:auto}
+
+/* ---- the map ---- */
+.topbar{height:40px;display:flex;align-items:center;gap:14px;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(14px,env(safe-area-inset-left,0px));border-bottom:3px double var(--fg);background:var(--bg);overflow:hidden;white-space:nowrap}
+.tb-name{font:400 19px/1 var(--hand);color:var(--hot);text-decoration:none;letter-spacing:.03em}
+.tb-k{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tb-links{margin-left:auto;display:flex;gap:16px;align-items:center;font:500 12px/1 var(--mono)}
+.tb-links a{text-decoration:none}.tb-links a:hover{text-decoration:underline}
+.mapband{width:100vw;margin-left:calc(50% - 50vw)}
+#map{position:relative;height:calc(100vh - 43px);height:calc(100svh - 43px);min-height:460px;border-bottom:1px solid #BCA676;background:#F3E5BF;overflow:hidden}
+#map::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;box-shadow:inset 0 0 90px rgba(120,84,30,.22), inset 0 0 18px rgba(120,84,30,.18)}
+.cartouche{position:absolute;left:14px;top:14px;z-index:5;max-width:min(340px,calc(100% - 28px));background:rgba(251,243,220,.95);color:#2B2119;border:2px solid #2B2119;outline:1px solid #2B2119;outline-offset:-6px;padding:10px 14px;box-shadow:0 3px 14px rgba(60,40,10,.22)}
+.cartouche::before,.cartouche::after{content:"";position:absolute;width:9px;height:9px;background:#A3261B;border:1px solid #2B2119;border-radius:50%}
+.cartouche::before{left:-6px;top:-6px}.cartouche::after{right:-6px;bottom:-6px}
+.cartouche h1{font:900 clamp(21px,2.2vw,28px)/1.02 var(--display);letter-spacing:-.015em;margin:6px 0 0;color:#2B2119}
+.cartouche h1 .a{color:#A3261B;font-family:var(--hand);font-weight:400;letter-spacing:.03em}
+.cartouche .dek{font-size:13.5px;line-height:1.36;margin:6px 0 0;color:#2B2119}
+.cartouche .byline{font:400 11px/1.35 var(--mono);color:#6E604E;margin-top:6px}
+.cartouche .kicker{color:#6E604E}
+.ct-fold{position:absolute;right:6px;top:5px;width:26px;height:26px;border:0;background:none;color:#A3261B;font:400 18px/1 var(--hand);cursor:pointer;padding:0}
+.ct-toggle{display:none;font:400 17px/1 var(--hand);color:#A3261B;background:none;border:0;padding:2px 0;cursor:pointer;min-height:30px}
+.cartouche.folded .ct-body,.cartouche.folded .ct-fold{display:none}.cartouche.folded .ct-toggle{display:block}.cartouche.folded{padding:4px 11px}
+.ov{position:absolute;z-index:5;font:400 13px/1.3 var(--mono);color:#2B2119}
+.ov-top{right:54px;top:10px;max-width:calc(100% - 430px);display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none}
+.ov-top>*{pointer-events:auto}
+.srch{position:relative;width:min(340px,100%)}
+.srch input{width:100%;font:400 15px/1 var(--mono);background:rgba(251,245,228,.96);color:#2B2119;border:1px solid #9C8656;border-radius:3px;padding:9px 10px;min-height:40px;box-shadow:0 1px 4px rgba(60,40,10,.18)}
+.srch input:focus-visible,.chip:focus-visible,.lp label:focus-within,.lp select:focus-visible{outline:2px solid #A3261B;outline-offset:2px}
+.sug{position:absolute;left:0;right:0;top:100%;margin:2px 0 0;padding:0;list-style:none;background:#FBF5E4;border:1px solid #9C8656;max-height:300px;overflow:auto;display:none;box-shadow:0 3px 10px rgba(60,40,10,.2);z-index:12}
+.sug li{padding:8px 10px;cursor:pointer;border-bottom:1px solid #E7D9B6}
+.sug li span{color:#7A6A52;font-size:12px}
+.sug li[aria-selected="true"],.sug li:hover{background:#EFE1BC}
+.chips{display:flex;gap:6px;overflow-x:auto;max-width:100%;scrollbar-width:none;padding-bottom:2px;justify-content:flex-end;flex-wrap:wrap}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font:500 12px/1 var(--mono);background:rgba(251,245,228,.94);color:#2B2119;border:1px solid #9C8656;border-radius:999px;padding:7px 10px;cursor:pointer;min-height:32px;white-space:nowrap;box-shadow:0 1px 3px rgba(60,40,10,.14);display:inline-flex;align-items:center;gap:6px}
+.chip:hover{background:#EFE1BC}
+.chip.lyr{background:#2B2119;color:#F6EED8;border-color:#2B2119}
+.chip.on{background:#A3261B;color:#fff;border-color:#A3261B}
+.lp{position:absolute;right:54px;top:96px;z-index:9;background:rgba(251,245,228,.98);border:1px solid #9C8656;border-radius:4px;padding:10px 12px 8px;font:400 13px/1.3 var(--mono);color:#2B2119;box-shadow:0 3px 12px rgba(60,40,10,.25);display:none;width:280px;max-height:calc(100% - 110px);overflow:auto}
+.lp.open{display:block}
+.lp h4{margin:0 0 6px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#7A6A52}
+.lp h5{margin:9px 0 1px;padding-top:7px;border-top:1px solid #E2D3AE;font:600 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#A3261B}
+.lp label{display:flex;gap:8px;align-items:center;padding:4px 0;cursor:pointer;min-height:30px}
+.lp input{accent-color:#A3261B;width:16px;height:16px;flex:none}
+.lp select{width:100%;font:400 13px/1 var(--mono);padding:6px;border:1px solid #9C8656;border-radius:3px;background:#fff;color:#2B2119;min-height:34px;margin:3px 0 6px}
+.lp .note{font-size:11.5px;color:#6E604E;margin:2px 0 4px}
+.lgd{position:absolute;left:12px;bottom:40px;z-index:4;background:rgba(251,245,228,.95);border:1px solid #9C8656;border-radius:3px;padding:8px 10px;font:400 11.5px/1.3 var(--mono);color:#2B2119;width:236px}
+.lgd b{font-weight:500}
+.lgd .bar{height:10px;margin:5px 0 2px;border:1px solid #2B2119}
+.lgd .ends{display:flex;justify-content:space-between;color:#6E604E;font-size:10.5px}
+.lgd .rw{display:flex;gap:10px;align-items:center;margin-top:6px}
+.lgd canvas{flex:none}
+.lgd .rs{color:#6E604E;font-size:11px;line-height:1.35}
+.lgd .rs b{color:#A3261B;font:800 19px/1 var(--display);display:block}
+.lgd-t{display:none;font:500 12px/1 var(--mono);background:rgba(251,245,228,.95);border:1px solid #9C8656;border-radius:3px;color:#2B2119;padding:6px 9px;cursor:pointer;min-height:30px}
+.ov-br{position:absolute;right:54px;bottom:12px;z-index:4;font:400 11px/1.2 var(--mono);color:#6E604E;background:rgba(251,245,228,.85);padding:5px 7px;border-radius:3px;border:1px solid #D3C29A}
+.maplibregl-popup-content{background:#FBF5E4;color:#2B2119;font:400 13px/1.45 var(--mono);border:1px solid #9C8656;border-radius:4px;padding:10px 12px;box-shadow:0 3px 12px rgba(60,40,10,.25);max-width:300px}
+.maplibregl-popup-content b.t{display:block;font:400 19px/1.15 var(--hand);color:#A3261B;margin-bottom:3px;padding-right:12px}
+.maplibregl-popup-content .m{color:#6E604E}
+.maplibregl-popup-content a{color:#A3261B}
+.maplibregl-popup-content .dial{float:right;margin:0 0 4px 8px}
+.maplibregl-popup-tip{border-top-color:#9C8656!important;border-bottom-color:#9C8656!important}
+.maplibregl-ctrl-attrib{font:400 11px/1.3 var(--mono)!important;background:rgba(251,245,228,.85)!important}
+.maplibregl-ctrl-group{background:#FBF5E4!important;border:1px solid #9C8656}
+.nojs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 14px var(--mono);color:#6E604E;padding:20px;text-align:center}
+@media (max-width:1000px){.ov-top{left:10px;right:54px;max-width:none;align-items:flex-start}.chips{justify-content:flex-start}.lp{left:10px;right:auto}.cartouche{top:auto;bottom:44px;left:auto;right:54px}}
+@media (max-width:600px){
+  #map{height:calc(100svh - 43px - 64px);min-height:440px}
+  .tb-k,.tb-links a:not(:first-of-type){display:none}
+  .ov-top{left:8px;top:8px}
+  .chips{flex-wrap:nowrap;overflow-x:auto}
+  .chip .lg{display:none}
+  .lp{top:96px;left:8px;right:8px;width:auto}
+  .cartouche{left:8px;right:auto;bottom:36px;max-width:calc(100% - 60px);padding:8px 11px}
+  .cartouche h1{font-size:21px}.cartouche .dek{display:none}
+  .ct-toggle{display:block}.ct-fold{display:none}
+  .lgd{bottom:auto;top:96px;left:8px;width:220px}
+  .lgd.fold .lgd-b{display:none}.lgd.fold{padding:0;border:0;background:none;width:auto}.lgd.fold .lgd-t{display:block}
+  .ov-br{display:none}
+  h2{font-size:28px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="tb-name" href="#map">Church orientation</a>
+  <span class="tb-k">Data study · 2026</span>
+  <nav class="tb-links"><a href="#essay">About</a><button class="theme" id="theme" aria-label="Toggle dark mode">◐</button><a href="https://doi.org/10.5281/zenodo.24052501">Paper</a><a href="{{REPO}}">Data and code</a></nav>
+</div>
+
+<div class="mapband">
+  <div id="map" data-fullscreen-map role="application" aria-label="Hand-inked map of the UK with every measured church drawn along its axis">
+    <div class="nojs" id="nojs">Loading the map. It needs JavaScript and WebGL.</div>
+    <div class="cartouche" id="cartouche">
+      <button class="ct-toggle" id="ctToggle" aria-expanded="true" title="Show the title">Which way do churches face? ▾</button>
+      <button class="ct-fold" id="ctFold" title="Fold the title" aria-label="Fold the title">▴</button>
+      <div class="ct-body">
+        <div class="kicker"><b>Data study</b><span>2026</span></div>
+        <h1>Which way do the UK's churches <span class="a">face</span>?</h1>
+        <p class="dek">{{n.measured|int}} church footprints from OpenStreetMap, each drawn as a small nave pointing along its axis and tinted by how far it turns from due east. Zoom in to see the building, its axis and the sunrise on its saint's day. Tap a church.</p>
+        <div class="byline">Dr Tristan Hotham · Independent researcher · 2026</div>
+      </div>
+    </div>
+    <div class="ov ov-top">
+      <div class="srch"><input type="search" id="q" placeholder="Find a church, town or village" aria-label="Find a church, town or village" autocomplete="off"><ul class="sug" id="sug" role="listbox"></ul></div>
+      <div class="chips" id="chips"><button class="chip lyr" id="lyrBtn" aria-expanded="false" aria-controls="lp">Layers and filters</button><button class="chip" id="oldChip" aria-pressed="false" title="Show only the historic parish churches">Historic <span class="lg">parish </span>churches</button></div>
+    </div>
+    <div class="lp" id="lp" role="dialog" aria-label="Map layers and filters">
+      <h4>Churches</h4>
+      <label><input type="checkbox" id="chBox" checked> Every measured church</label>
+      <label><input type="checkbox" id="axBox" checked> Axis and feast-day sunrise (zoomed in)</label>
+      <div class="note">Date of building or foundation</div>
+      <select id="perSel" aria-label="Period"><option value="">Any date</option></select>
+      <div class="note">Denomination (as tagged in OpenStreetMap)</div>
+      <select id="denSel" aria-label="Denomination"><option value="">Any denomination</option></select>
+      <div class="note">Listing</div>
+      <select id="grSel" aria-label="Listing grade"><option value="">Listed or not</option></select>
+      <div class="note">Patron saint or dedication</div>
+      <select id="stSel" aria-label="Patron saint"><option value="">Any dedication</option></select>
+      <h5>The inked map</h5>
+      <label><input type="checkbox" data-g="mountains" checked> Ink mountains and hills</label>
+      <label><input type="checkbox" data-g="forests" checked> Forests, marsh and moor</label>
+      <label><input type="checkbox" data-g="rivers" checked> Rivers and lakes</label>
+      <label><input type="checkbox" data-g="sea" checked> Sea shading and ripples</label>
+      <label><input type="checkbox" data-g="names" checked> Place names</label>
+      <label><input type="checkbox" data-g="borders" checked> Borders</label>
+      <label><input type="checkbox" data-g="roads" checked> Roads and streets</label>
+      <label><input type="checkbox" data-g="tint" checked> Watercolour tints</label>
+      <label><input type="checkbox" data-g="hillshade"> Hill shading</label>
+      <label><input type="checkbox" id="modern"> Plain modern map, for finding your way</label>
+    </div>
+    <div class="lgd" id="lgd" aria-live="polite">
+      <button class="lgd-t" id="lgdT" aria-expanded="false">Key ▾</button>
+      <div class="lgd-b">
+        <b>Turn from due east, either way</b>
+        <div class="bar" id="lgdBar"></div>
+        <div class="ends"><span>0°</span><span>5°</span><span>10°</span><span>20°</span><span>45°</span><span>90°</span></div>
+        <div class="rw"><canvas id="rose" width="92" height="92" aria-label="Rose diagram of the axes of the churches shown"></canvas>
+          <div class="rs" id="roseTxt"></div></div>
+      </div>
+    </div>
+    <div class="ov-br" id="count" aria-live="polite"></div>
+  </div>
+</div>
+
+<div class="wrap" id="essay">
+<p class="lede" style="margin-top:26px">Stand in almost any old English parish church and you face east, towards the altar, Jerusalem and the rising sun. But not exactly east. Some naves swing north, some south, by a few degrees or by twenty. For more than a century people have offered an explanation: the builders pegged out the line on the morning of the patron saint's day, and aimed it at the sunrise. A church of St John the Baptist, whose feast is at midsummer, should then point well north of east, and a church of St Nicholas, in December, well south.</p>
+<p>So I measured them. OpenStreetMap has the outline of {{n.polygons|int}} church buildings in the United Kingdom. For the {{n.measured|int}} that are clearly longer than they are wide, I took the long axis of the smallest rectangle that fits round the footprint and worked out how far it turns from true east. Wikidata adds the patron saint, the date and the listing for many of them.</p>
+<div class="byline">Dr Tristan Hotham · Independent researcher · 2026 · Data: OpenStreetMap contributors (ODbL), Wikidata (CC0); map: OpenStreetMap via OpenFreeMap</div>
+
+<div class="stats">
+  <div class="stat"><b>{{old.within10|pc}}</b><span>of historic parish churches lie within 10° of due east</span></div>
+  <div class="stat"><b>{{by_denom.nonconformist.within10|pc}}</b><span>of Methodist, Baptist and other Free Church chapels do</span></div>
+  <div class="stat"><b>{{summer_winter.obs_gap_abs|f1}}°</b><span>between midsummer and midwinter saints' churches; the sunrise moves {{summer_winter.pred_gap|deg0}}</span></div>
+  <div class="stat"><b>{{old.mean_dev_eastish_abs|f1}}°</b><span>the average old church turns north of east</span></div>
+</div>
+
+<h2><span class="n">01 · East, mostly</span>Old churches face east; new ones face the street</h2>
+<p>Of all {{n.measured|int}} measured churches, {{all.within10|pc}} lie within 10° of due east and {{all.beyond45|pc}} are closer to north and south than to east and west. But age changes everything. Among the historic parish churches (those dated before 1540, or, when undated, listed Grade I or II* or category A, of the established churches or untagged), {{old.within10|pc}} lie within 10° of east and only {{old.beyond45|pc1}} turn more than 45°. Churches dated 1800 to 1913 manage {{by_period.victorian.within10|pc}}, and those from 1914 onwards {{by_period.modern.within10|pc}}. Methodist, Baptist and other Free Church chapels, which never held to the rule, manage {{by_denom.nonconformist.within10|pc}}, little better than the {{chance10|pc1}} that a random direction would give.</p>
+<div class="figure"><img src="img/roses.png" alt="Four rose diagrams: historic parish churches cluster tightly on east and west; Victorian churches less so; modern churches and Free Church chapels point every way" loading="lazy" width="1200" height="572"><p class="src">The long axis of each footprint. Historic parish churches cluster on east; later churches and chapels point every way.</p></div>
+<div class="figure"><img src="img/groups.png" alt="Bar chart: the share of churches within 5, 10 and 20 degrees of east falls from medieval to modern, from Grade I to unlisted, and from Anglican to Free Church" loading="lazy" width="1200" height="860"><p class="src">Share within 5°, 10° and 20° of due east, by date, listing and denomination.</p></div>
+
+<h2><span class="n">02 · The saint's day</span>Midsummer saints face the same way as midwinter saints</h2>
+<p>If churches were set out on the patron saint's day, the saint would predict the axis. It does not. I worked out the sunrise direction over a flat horizon for each church's latitude on its saint's feast, moving medieval dates to the Julian calendar of the time (seven to ten days later in the sun's year). The historic churches of John the Baptist, Peter and the other midsummer saints point on average at {{summer_winter.summer_mean_bearing|f1}}° from north, where the feast-day sunrise would be {{summer_winter.summer_pred|deg0}}. The churches of Nicholas, Thomas, Andrew and the other midwinter saints point at {{summer_winter.winter_mean_bearing|f1}}°, where the sunrise would be {{summer_winter.winter_pred|deg0}}. Across {{saint_regression.n_saints|raw}} saints with 25 or more historic churches, the feast-day sunrise spans {{saint_regression.pred_span|deg0}}, the average axes only {{saint_regression.obs_span|deg0}}.</p>
+<p>A sharper test shuffles the saints among the churches at random, 10,000 times, and asks whether the real saints fit the axes better than shuffled ones. They do not: the real saints miss by {{feast.old.mean_abs_err|f1}}° on average, the shuffled ones by {{feast.old.perm_mean|f1}}° (p = {{feast.old.p_value|f2}}). Just {{feast.old.within3|pc1}} of historic churches lie within 3° of their feast-day sunrise, against {{feast.old.within3_perm|pc1}} by chance. Mary, the commonest dedication, has four feasts. Her historic churches average {{mary.mean_bearing|f1}}°, the same as everyone else's, which happens to lie near the sunrise of her March and September feasts and far from her February and August ones. The idea is not new to be doubted: Ian Hinton found the same for about 1,500 rural churches in 2006. The map shows the predicted sunrise as a dashed line beside every church when you zoom in, so you can check your own.</p>
+<div class="figure"><img src="img/saints.png" alt="Scatter plot: the average axis of each saint's churches stays near 85 degrees whatever the feast-day sunrise, from 49 to 130 degrees" loading="lazy" width="1200" height="840"><p class="src">Each dot is a saint. If churches faced the feast-day sunrise the dots would lie on the dashed line; they lie flat.</p></div>
+
+<h2><span class="n">03 · North of east</span>A small, steady lean, stronger in the west</h2>
+<p>What the old churches do share is a lean. {{old.north_of_east|pc}} of historic churches within 45° of east turn north of it, on average by {{old.mean_dev_eastish_abs|f1}}°, so the average axis points at {{old_mean_bearing|f1}}° rather than 90°. The lean grows from east to west: east of 1°E, mostly Norfolk, Suffolk and east Kent, the historic churches average {{lon_east_band.mean_dev|f1}}°, true east to within a whisker, while those west of 3°W turn {{lon_slope_old.west_mean_abs|f1}}° north on average. That fits a sunrise a little north of the equinox, the spring or Easter sun, or simply a habit of setting out by eye that drifted from place to place. The data cannot tell those apart.</p>
+<div class="figure"><img src="img/longitude.png" alt="Line chart and map: the average northward turn of historic churches shrinks from about 6 to 7 degrees in the west to about 0 on the east coast" loading="lazy" width="1200" height="720"><p class="src">Mean turn from east of historic parish churches in England and Wales, by one-degree band of longitude.</p></div>
+
+<h2><span class="n">04 · The street</span>In towns, the grid often wins</h2>
+<p>For a random sample of {{streets_sample.n|int}} churches I read the roads within 150 m from OpenFreeMap's vector tiles and found the main direction of the local street grid. In towns (at least {{streets_sample.urban_threshold_m|int}} m of road inside that circle), where the grid runs well off east, {{streets.urban_victorian_modern.closer_to_grid|pc}} of churches dated 1800 onwards line up closer to the streets than to east, and {{streets.urban_nonconf_catholic.closer_to_grid|pc}} of Roman Catholic and Free Church buildings. For historic parish churches in towns it is {{streets.urban_old.closer_to_grid|pc}}, from a small sample. The arrow runs both ways: a Victorian church was fitted into a plot on a street that was already there, while the lanes round a medieval church were often laid out along its churchyard, which is why even country churches share a direction with their nearest roads more often than not ({{streets.rural.closer_to_grid|pc}}).</p>
+<div class="figure"><img src="img/streets.png" alt="Two histograms: historic town churches are close to east; later town churches are close to their street grid" loading="lazy" width="1200" height="660"><p class="src">Angle between each town church and due east (bars), and between it and the local street grid (line).</p></div>
+<div class="figure"><img src="img/footprints.png" alt="Five church footprints with their measured axes: one exactly east, one north of east, one south of east, Coventry Cathedral running north to south, and Westminster Cathedral turned far from east" loading="lazy" width="1200" height="517"><p class="src">Five footprints and their measured axes, from OpenStreetMap.</p></div>
+
+<h2><span class="n">05 · How I made this</span>Measuring a building's axis</h2>
+<p><b>Footprints.</b> All buildings tagged as a church, cathedral or chapel in OpenStreetMap for the United Kingdom, plus places of worship of the Christian religion drawn as other buildings, {{n.polygons|int}} outlines in all; points are left out because they have no shape. Each outline is laid flat around its own centre with north kept true, and the long side of the smallest rectangle that fits round it gives the axis, read as the east end. I kept those at least {{min_ratio|raw}} times as long as wide and between {{min_area|raw}} and {{max_area|int}} square metres: {{n.measured|int}}. A second method, the length-weighted direction of the walls, agrees within 2° for {{n.rect_edge_agree_2deg|pc}} of them.</p>
+<p><b>Saints, dates and listing.</b> Wikidata items were joined to {{n.wikidata_joined|int}} footprints through the OpenStreetMap wikidata tag, the OSM way id in Wikidata, or the item's coordinates lying in the footprint. The saint comes from Wikidata's dedication, else from the church's name, read with the parser from my <a href="https://github.com/Tristan-Hotham/saints-geography">saints-geography</a> study. Dates are the earliest of the OpenStreetMap start date and the Wikidata inception, and are known for {{n.dated|int}} churches.</p>
+<p><b>What it cannot say.</b> A footprint is not a nave: towers, aisles, transepts and later additions bend the rectangle, though for most churches the nave dominates. Wikidata inception is sometimes the founding of the parish rather than the standing building. Feast dates follow the usual calendars, but a church may have changed its dedication, and many saints have more than one feast. The horizon is taken as flat, so hills that delay the sunrise are ignored. The street test uses today's streets. None of this explains a lean of a few degrees; it only shows what does not.</p>
+
+<details><summary>Saint by saint: historic parish churches</summary>
+<div class="tw"><table class="words" id="saintTable"></table></div>
+</details>
+
+<details><summary>Earlier work</summary>
+<ul class="plain">
+<li>Ali, J. R. and Cunich, P. (2001) The orientation of churches: some new evidence. The Antiquaries Journal 81, 155 to 193. They measured 143 major churches of about 1050 to 1200 and found the patron saint's sunrise could explain up to 43% if sunrise and sunset are both allowed.</li>
+<li>Hinton, I. (2006) Church alignment and patronal saint's days. The Antiquaries Journal 86, 206 to 226. About 1,500 rural churches; churches of summer and winter saints face the same way.</li>
+<li>Furuhashi, T. and Terado, H. (2026) Between sacred tradition and urban form: an OpenStreetMap-based analysis of church orientation patterns in Milan. ISPRS Archives L-4/W1-2026, 43 to 48 (FOSS4G 2026).</li>
+</ul></details>
+
+<details><summary>Sources and licences</summary>
+<ul class="plain">
+<li>Church footprints, names, denominations and dates: © OpenStreetMap contributors, Open Database Licence, queried through QLever. The derived church table is under the ODbL.</li>
+<li>Saints, inception dates and listing grades: Wikidata (CC0), from Historic England, Cadw, Historic Environment Scotland and the Department for Communities NI records.</li>
+<li>Dedication parser: saints-geography (MIT). Street grid: OpenFreeMap vector tiles (OpenMapTiles schema, OpenStreetMap data).</li>
+<li>Map: OpenStreetMap contributors (ODbL), vector tiles by OpenFreeMap; the Inked World map style and its data (Natural Earth, RESOLVE Ecoregions 2017 CC BY 4.0, Wikidata CC0), from the ink-map study; elevation from AWS Terrain Tiles.</li>
+<li>Fonts: MedievalSharp and the IM Fell types (SIL Open Font License). MapLibre GL JS 4.7.1 (BSD 3-Clause).</li>
+</ul></details>
+
+<div class="cta"><a class="p" href="https://doi.org/10.5281/zenodo.24052501">Read the paper</a><a href="{{REPO}}">Data and code</a><a href="https://blog.tristanhotham.com/2026/10/31/church-orientation/">Blog post</a></div>
+
+<footer>
+<p>Dr Tristan Hotham, Independent researcher. ORCID <a href="https://orcid.org/0000-0003-4931-9349">0000-0003-4931-9349</a>.</p>
+<p>Cite as: Hotham, T. (2026) Which way do the UK's churches face? Zenodo. <a href="https://doi.org/10.5281/zenodo.24052501">10.5281/zenodo.24052501</a></p>
+<p>Code: <a href="{{REPO}}">github.com/Tristan-Hotham/church-orientation</a> (MIT). Text and figures CC BY 4.0; church data derived from OpenStreetMap © OpenStreetMap contributors (ODbL); Wikidata CC0.</p>
+<p>{{AI}}</p>
+</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="js/curated.js?v=1"></script>
+<script src="js/ink-palette.js?v=1"></script>
+<script src="js/ink-icons.js?v=1"></script>
+<script src="js/ink-houses.js?v=1"></script>
+<script src="js/ink-map.js?v=1"></script>
+<script src="js/ink-extras.js?v=1"></script>
+<script>
+(function () {
+  const qs = new URLSearchParams(location.search);
+  const opts = { workerConfig: { heritage: '', hills: '', places: '' } };
+  if (qs.get('tj')) opts.tilejson = qs.get('tj');
+  const start = qs.get('at') ? qs.get('at').split(',').map(Number) : null;
+  const phone = matchMedia('(max-width:600px)').matches;
+  opts.mapOptions = start ? { center: [start[1], start[0]], zoom: start[2] } : { center: [-3.0, 54.6], zoom: phone ? 4.45 : 5.25 };
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const STOPS = {{ABS_STOPS}};
+  let D = null, map = null, P = null;
+  const state = { per: '', den: '', gr: '', st: '', old: false };
+
+  const ct = $('cartouche');
+  const fold = f => { ct.classList.toggle('folded', f); $('ctToggle').setAttribute('aria-expanded', String(!f)); };
+  if (phone) { fold(true); $('lgd').classList.add('fold'); }
+  $('ctToggle').addEventListener('click', () => fold(!ct.classList.contains('folded')));
+  $('ctFold').addEventListener('click', () => fold(true));
+  $('lgdT').addEventListener('click', () => { const f = $('lgd').classList.toggle('fold'); $('lgdT').setAttribute('aria-expanded', String(!f)); });
+  document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement) fold(true); });
+  // key bar on a square-root scale, as in the figures
+  (function () { const g = []; for (let k = 0; k <= 20; k++) { const t = k / 20, a = t * t * 90; g.push(col(a) + ' ' + (t * 100).toFixed(0) + '%'); } $('lgdBar').style.background = 'linear-gradient(90deg,' + g.join(',') + ')';
+    const e = $('lgd').querySelector('.ends'); e.style.position = 'relative'; e.style.height = '13px'; e.innerHTML = [0, 5, 10, 20, 45, 90].map(a => '<span style="position:absolute;left:' + (Math.sqrt(a / 90) * 100) + '%;transform:translateX(' + (a === 0 ? '0' : a === 90 ? '-100%' : '-50%') + ')">' + a + '°</span>').join(''); })();
+  function col(a) { a = Math.min(90, Math.abs(a)); for (let i = 1; i < STOPS.length; i++) { if (a <= STOPS[i][0]) { const [a0, c0] = STOPS[i - 1], [a1, c1] = STOPS[i]; const t = (a - a0) / (a1 - a0); const h = c => [1, 3, 5].map(j => parseInt(c.substr(j, 2), 16)); const x = h(c0), y = h(c1); return 'rgb(' + x.map((v, j) => Math.round(v + (y[j] - v) * t)).join(',') + ')'; } } return STOPS[STOPS.length - 1][1]; }
+
+  const dataP = fetch('data/churches.json').then(r => r.json());
+  InkMap.create('map', opts).then(m => {
+    map = window.__map = m; window.__popup = (i, ll) => popup(i, ll);
+    $('nojs').remove();
+    const foldAttr = () => { const at = document.querySelector('.maplibregl-ctrl-attrib.maplibregl-compact'); if (at) { at.classList.remove('maplibregl-compact-show'); at.removeAttribute('open'); } };
+    map.once('idle', foldAttr); foldAttr();
+    map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: false }), 'bottom-right');
+    if (InkMap.setWinter) InkMap.setWinter(map, false);
+    ['heritage', 'flight', 'animals', 'farms', 'towns'].forEach(g => InkMap.setGroup(map, g, false));
+    const isDark = () => { const r = document.documentElement; return r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; };
+    const tone = () => InkMap.setSeaTone && InkMap.setSeaTone(map, isDark());
+    tone(); new MutationObserver(tone).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    dataP.then(d => { D = d; addChurches(); buildUI(); }).catch(e => console.error('churches', e));
+    setupLayers();
+  }).catch(e => { console.error(e); const n = $('nojs'); if (n) n.textContent = 'The map could not load: ' + e.message; });
+
+  function firstSymbol() { const ls = map.getStyle().layers; const l = ls.find(x => x.metadata && x.metadata.group === 'names'); return l ? l.id : undefined; }
+  // a small nave: a long body with a pointed east end, drawn pointing up (north); rotated by the bearing
+  function naveImage() {
+    const W = 24, H = 64, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+    g.fillStyle = '#000'; g.beginPath(); g.moveTo(W / 2, 1); g.lineTo(W - 3, 15); g.lineTo(W - 3, H - 3); g.lineTo(3, H - 3); g.lineTo(3, 15); g.closePath(); g.fill();
+    return { width: W, height: H, data: g.getImageData(0, 0, W, H).data };
+  }
+  function addChurches() {
+    const K = D.keys, ix = Object.fromEntries(K.map((k, i) => [k, i]));
+    P = D.rows.map((r, i) => ({ i, lon: r[ix.lon], lat: r[ix.lat], b: r[ix.bearing], a: Math.abs(r[ix.bearing] - 90), L: r[ix.length], Wd: r[ix.width], p: r[ix.period], d: r[ix.denom], s: r[ix.saint], g: r[ix.grade], n: r[ix.name], osm: r[ix.osm], q: r[ix.qid], y: r[ix.year], f: r[ix.feast_sunrise_az], o: r[ix.old] }));
+    const feats = P.map(c => ({ type: 'Feature', id: c.i, geometry: { type: 'Point', coordinates: [c.lon, c.lat] }, properties: { b: c.b, a: Math.round(c.a * 10) / 10, p: c.p, d: c.d, s: c.s, g: c.g, o: c.o } }));
+    map.addImage('nave', naveImage(), { sdf: true, pixelRatio: 2 });
+    // building outlines from the OpenFreeMap tiles, so that each church's own footprint shows when zoomed in
+    map.addLayer({ id: 'bld', type: 'fill', source: 'ofm', 'source-layer': 'building', minzoom: 14,
+      paint: { 'fill-color': '#E6D6B0', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 14, 0, 15, 0.9] } }, firstSymbol());
+    map.addLayer({ id: 'bld-line', type: 'line', source: 'ofm', 'source-layer': 'building', minzoom: 14,
+      paint: { 'line-color': '#7A6446', 'line-width': ['interpolate', ['linear'], ['zoom'], 15, 0.5, 18, 1.2], 'line-opacity': ['interpolate', ['linear'], ['zoom'], 14, 0, 15, 0.9] } }, firstSymbol());
+    map.addSource('ch', { type: 'geojson', data: { type: 'FeatureCollection', features: feats }, attribution: 'Churches: <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> (ODbL), <a href="https://www.wikidata.org/" target="_blank">Wikidata</a> (CC0)' });
+    const ramp = ['interpolate', ['linear'], ['get', 'a']]; STOPS.forEach(([a, c]) => ramp.push(a, c));
+    map.addLayer({ id: 'ch', type: 'symbol', source: 'ch', layout: {
+      'icon-image': 'nave', 'icon-rotate': ['get', 'b'], 'icon-rotation-alignment': 'map', 'icon-allow-overlap': true, 'icon-ignore-placement': true,
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 4, 0.16, 7, 0.28, 10, 0.42, 13, 0.6, 15, 0.75], 'symbol-sort-key': ['-', 0, ['get', 'a']] },
+      paint: { 'icon-color': ramp, 'icon-halo-color': 'rgba(43,33,25,0.55)', 'icon-halo-width': ['interpolate', ['linear'], ['zoom'], 5, 0, 9, 0.6], 'icon-opacity': ['interpolate', ['linear'], ['zoom'], 13.5, 1, 15, 0.35] } }, firstSymbol());
+    // axis and feast-day sunrise lines, built once when first zoomed in
+    map.addSource('ax', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({ id: 'ax-sun', type: 'line', source: 'ax', minzoom: 13.5, filter: ['==', ['get', 'k'], 'sun'], layout: { 'line-cap': 'round' },
+      paint: { 'line-color': '#C7861C', 'line-width': ['interpolate', ['linear'], ['zoom'], 14, 1.2, 18, 2.4], 'line-dasharray': [2, 2] } }, firstSymbol());
+    map.addLayer({ id: 'ax-east', type: 'line', source: 'ax', minzoom: 13.5, filter: ['==', ['get', 'k'], 'east'],
+      paint: { 'line-color': '#6E604E', 'line-width': 1, 'line-dasharray': [1, 2.5], 'line-opacity': 0.8 } }, firstSymbol());
+    map.addLayer({ id: 'ax-line', type: 'line', source: 'ax', minzoom: 13.5, filter: ['==', ['get', 'k'], 'axis'], layout: { 'line-cap': 'round' },
+      paint: { 'line-color': ramp, 'line-width': ['interpolate', ['linear'], ['zoom'], 14, 2, 18, 4] } }, firstSymbol());
+    map.addLayer({ id: 'ax-lab', type: 'symbol', source: 'ax', minzoom: 15.5, filter: ['==', ['get', 'k'], 'sun'],
+      layout: { 'symbol-placement': 'line', 'text-field': ['get', 't'], 'text-font': ['Ink Italic'], 'text-size': 13, 'text-offset': [0, -0.7] },
+      paint: { 'text-color': '#8A5A10', 'text-halo-color': 'rgba(246,238,216,0.95)', 'text-halo-width': 1.5 } });
+    let built = false;
+    const build = () => { if (built || map.getZoom() < 13) return; built = true; map.getSource('ax').setData(axisLines()); };
+    map.on('zoomend', build); build();
+    map.on('click', 'ch', e => popup(e.features[0].id, e.lngLat));
+    map.on('mouseenter', 'ch', () => map.getCanvas().style.cursor = 'pointer');
+    map.on('mouseleave', 'ch', () => map.getCanvas().style.cursor = '');
+    applyFilter();
+  }
+  function dest(lon, lat, brg, m) { const k = Math.cos(lat * Math.PI / 180), r = brg * Math.PI / 180; return [lon + Math.sin(r) * m / (111195 * k), lat + Math.cos(r) * m / 111195]; }
+  function axisLines() {
+    const f = [];
+    for (const c of P) {
+      const h = c.L / 2;
+      const props = { i: c.i, a: Math.round(c.a * 10) / 10, p: c.p, d: c.d, s: c.s, g: c.g, o: c.o };
+      f.push({ type: 'Feature', properties: Object.assign({ k: 'axis' }, props), geometry: { type: 'LineString', coordinates: [dest(c.lon, c.lat, c.b + 180, h), dest(c.lon, c.lat, c.b, h + 6)] } });
+      f.push({ type: 'Feature', properties: Object.assign({ k: 'east' }, props), geometry: { type: 'LineString', coordinates: [[c.lon, c.lat], dest(c.lon, c.lat, 90, h + 14)] } });
+      if (c.f > 0) f.push({ type: 'Feature', properties: Object.assign({ k: 'sun', t: 'sunrise on ' + D.feasts[c.s] }, props), geometry: { type: 'LineString', coordinates: [[c.lon, c.lat], dest(c.lon, c.lat, c.f, h + 40)] } });
+    }
+    return { type: 'FeatureCollection', features: f };
+  }
+  function turn(b) { const d = b - 90; if (Math.abs(d) < 0.05) return 'due east'; return Math.abs(d).toFixed(1) + '° ' + (d < 0 ? 'north' : 'south') + ' of east'; }
+  function dial(b, f) {
+    const R = 26, cx = 30, cy = 30, pt = (a, r) => [cx + Math.sin(a * Math.PI / 180) * r, cy - Math.cos(a * Math.PI / 180) * r];
+    const [x1, y1] = pt(b, R - 2), [x0, y0] = pt(b + 180, R - 2);
+    let s = '<svg class="dial" width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="' + R + '" fill="#F6EED8" stroke="#9C8656"/>' +
+      '<text x="30" y="11" font-size="8" text-anchor="middle" fill="#6E604E">N</text><text x="52" y="33" font-size="8" text-anchor="middle" fill="#6E604E">E</text>' +
+      '<line x1="30" y1="30" x2="54" y2="30" stroke="#6E604E" stroke-dasharray="1.5 2"/>';
+    if (f > 0) { const [sx, sy] = pt(f, R - 2); s += '<line x1="30" y1="30" x2="' + sx + '" y2="' + sy + '" stroke="#C7861C" stroke-width="1.6" stroke-dasharray="3 2"/>'; }
+    s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="' + col(b - 90) + '" stroke-width="3.2" stroke-linecap="round"/><circle cx="' + x1 + '" cy="' + y1 + '" r="2.6" fill="' + col(b - 90) + '"/></svg>';
+    return s;
+  }
+  function popup(i, ll) {
+    const c = P[i], osmT = c.osm[0] === 'w' ? 'way' : 'relation', id = c.osm.slice(1);
+    const nm = c.n || 'Unnamed church';
+    let h = '<b class="t">' + esc(nm) + '</b>' + dial(c.b, c.f) +
+      '<div>Axis ' + c.b.toFixed(1) + '° from north: <b>' + turn(c.b) + '</b></div>' +
+      '<div class="m">Footprint ' + c.L + ' m by ' + c.Wd + ' m</div>';
+    if (c.s >= 0) {
+      h += '<div style="margin-top:4px">Dedication: ' + esc(D.saints[c.s]) + '</div>';
+      if (c.f > 0) { const miss = c.b - c.f; h += '<div class="m">Sunrise on ' + esc(D.feasts[c.s]) + ' (feast): ' + c.f.toFixed(0) + '°, so the church misses it by ' + Math.abs(miss).toFixed(0) + '°</div>'; }
+      else h += '<div class="m">No single fixed feast day</div>';
+    }
+    const bits = [];
+    if (c.y) bits.push('dated ' + c.y); bits.push(D.periods[c.p].replace('Date not known', 'date not known'));
+    if (D.grades[c.g]) bits.push(D.grades[c.g]); bits.push(D.denoms[c.d]);
+    h += '<div class="m" style="margin-top:4px">' + esc(bits.join(' · ')) + (c.o ? ' · historic parish church' : '') + '</div>';
+    h += '<div style="margin-top:5px"><a href="https://www.openstreetmap.org/' + osmT + '/' + id + '" target="_blank" rel="noopener">OpenStreetMap ' + osmT + ' ' + id + '</a>' + (c.q ? ' · <a href="https://www.wikidata.org/wiki/' + c.q + '" target="_blank" rel="noopener">Wikidata ' + c.q + '</a>' : '') + '</div>';
+    const at = ll || [c.lon, c.lat], pt = map.project(at), H = map.getContainer().clientHeight;
+    if (pt.y < H * 0.45 || pt.y > H - 120) map.panTo(at, { offset: [0, H * 0.22], duration: 600 });
+    new maplibregl.Popup({ maxWidth: '300px', anchor: 'bottom' }).setLngLat(at).setHTML(h).addTo(map);
+  }
+  function keep(c) { return (state.per === '' || c.p === +state.per) && (state.den === '' || c.d === +state.den) && (state.gr === '' || c.g === +state.gr) && (state.st === '' || c.s === +state.st) && (!state.old || c.o === 1); }
+  function applyFilter() {
+    if (!map || !map.getLayer('ch')) return;
+    const f = ['all'];
+    if (state.per !== '') f.push(['==', ['get', 'p'], +state.per]);
+    if (state.den !== '') f.push(['==', ['get', 'd'], +state.den]);
+    if (state.gr !== '') f.push(['==', ['get', 'g'], +state.gr]);
+    if (state.st !== '') f.push(['==', ['get', 's'], +state.st]);
+    if (state.old) f.push(['==', ['get', 'o'], 1]);
+    const F = f.length > 1 ? f : null;
+    map.setFilter('ch', F); ['ax-line', 'ax-east', 'ax-lab'].forEach(l => map.setFilter(l, F ? ['all', ['==', ['get', 'k'], l === 'ax-line' ? 'axis' : l === 'ax-east' ? 'east' : 'sun'], F] : ['==', ['get', 'k'], l === 'ax-line' ? 'axis' : l === 'ax-east' ? 'east' : 'sun']));
+    map.setFilter('ax-sun', F ? ['all', ['==', ['get', 'k'], 'sun'], F] : ['==', ['get', 'k'], 'sun']);
+    const h = new Array(36).fill(0); let n = 0, w10 = 0;
+    for (const c of P) if (keep(c)) { n++; h[Math.min(35, Math.floor(c.b / 5))]++; if (c.a <= 10) w10++; }
+    drawRose(h);
+    $('roseTxt').innerHTML = '<b>' + (n ? Math.round(100 * w10 / n) : 0) + '%</b>within 10° of east<br>' + n.toLocaleString('en-GB') + ' churches shown';
+    $('count').textContent = n.toLocaleString('en-GB') + ' churches shown';
+  }
+  function drawRose(h) {
+    const cv = $('rose'), g = cv.getContext('2d'), r = 44, cx = 46, cy = 46, mx = Math.max(1, ...h);
+    g.clearRect(0, 0, 92, 92); g.strokeStyle = '#9C8656'; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke();
+    g.strokeStyle = '#E2D3AE'; g.beginPath(); g.moveTo(cx, cy - r); g.lineTo(cx, cy + r); g.moveTo(cx - r, cy); g.lineTo(cx + r, cy); g.stroke();
+    for (let k = 0; k < 36; k++) {
+      const a0 = k * 5, len = r * h[k] / mx;
+      for (const off of [0, 180]) {
+        const t0 = (a0 + off - 90) * Math.PI / 180, t1 = (a0 + 5 + off - 90) * Math.PI / 180;
+        g.fillStyle = off ? 'rgba(160,140,106,0.35)' : col(a0 + 2.5 - 90);
+        g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, len, t0, t1); g.closePath(); g.fill();
+      }
+    }
+    g.fillStyle = '#6E604E'; g.font = '9px IBM Plex Mono, monospace'; g.textAlign = 'center'; g.fillText('N', cx, 9); g.fillText('E', cx + r - 5, cy + 3);
+  }
+  function buildUI() {
+    const fill = (sel, arr, filt) => arr.forEach((t, i) => { if (filt && !filt(t, i)) return; const o = document.createElement('option'); o.value = i; o.textContent = t; sel.appendChild(o); });
+    fill($('perSel'), D.periods); fill($('denSel'), D.denoms); fill($('grSel'), D.grades, t => t);
+    const cnt = new Array(D.saints.length).fill(0); for (const c of P) if (c.s >= 0) cnt[c.s]++;
+    D.saints.forEach((s, i) => { if (cnt[i] < 10) return; const o = document.createElement('option'); o.value = i; o.textContent = s + ' (' + cnt[i] + ')' + (D.feasts[i] ? ', ' + D.feasts[i] : ''); $('stSel').appendChild(o); });
+    $('perSel').addEventListener('change', e => { state.per = e.target.value; applyFilter(); });
+    $('denSel').addEventListener('change', e => { state.den = e.target.value; applyFilter(); });
+    $('grSel').addEventListener('change', e => { state.gr = e.target.value; applyFilter(); });
+    $('stSel').addEventListener('change', e => { state.st = e.target.value; applyFilter(); });
+    const oc = $('oldChip'); oc.addEventListener('click', () => { state.old = !state.old; oc.classList.toggle('on', state.old); oc.setAttribute('aria-pressed', String(state.old)); applyFilter(); });
+    $('chBox').addEventListener('change', e => map.setLayoutProperty('ch', 'visibility', e.target.checked ? 'visible' : 'none'));
+    $('axBox').addEventListener('change', e => ['ax-line', 'ax-east', 'ax-sun', 'ax-lab'].forEach(l => map.setLayoutProperty(l, 'visibility', e.target.checked ? 'visible' : 'none')));
+    const t = $('saintTable');
+    t.innerHTML = '<tr><th>Saint</th><th>Feast</th><th class="r">Churches</th><th class="r">Feast-day sunrise</th><th class="r">Average axis</th></tr>' +
+      {{SAINT_ROWS}}.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td class="r">' + r[2] + '</td><td class="r">' + r[3].toFixed(0) + '°</td><td class="r">' + r[4].toFixed(1) + '°</td></tr>').join('');
+    setupSearch();
+  }
+  function setupLayers() {
+    const lp = $('lp'), btn = $('lyrBtn');
+    btn.addEventListener('click', e => { e.stopPropagation(); const o = lp.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+    document.addEventListener('click', e => { if (!lp.contains(e.target) && e.target !== btn) { lp.classList.remove('open'); btn.setAttribute('aria-expanded', false); } });
+    const boxes = [...lp.querySelectorAll('input[data-g]')], modern = $('modern');
+    const NAME_LAYERS = map.getStyle().layers.filter(l => l.type === 'symbol' && l.metadata && ['names', 'rivers'].includes(l.metadata.group)).map(l => l.id);
+    const saved = {}; NAME_LAYERS.forEach(id => saved[id] = { c: map.getPaintProperty(id, 'text-color'), h: map.getPaintProperty(id, 'text-halo-color') });
+    function apply() {
+      const m = modern.checked;
+      boxes.forEach(b => { const g = b.dataset.g; const inkOnly = ['mountains', 'forests', 'sea', 'tint'].includes(g); InkMap.setGroup(map, g, b.checked && !(m && inkOnly)); });
+      InkMap.setGroup(map, 'paper', !m); InkMap.setGroup(map, 'modern', m); InkMap.setGroup(map, 'coast', !m);
+      NAME_LAYERS.forEach(id => { map.setPaintProperty(id, 'text-color', m ? '#333333' : saved[id].c); map.setPaintProperty(id, 'text-halo-color', m ? 'rgba(255,255,255,0.9)' : saved[id].h); });
+    }
+    boxes.forEach(b => b.addEventListener('change', apply)); modern.addEventListener('change', apply);
+  }
+  function setupSearch() {
+    const q = $('q'), sug = $('sug');
+    const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    let idx = null, places = null, sel = -1, items = [];
+    fetch('data/places.json').then(r => r.json()).then(p => { places = p.map(x => [norm(x[0]), x]); }).catch(() => {});
+    function show(list) {
+      items = list; sel = -1;
+      sug.innerHTML = list.map((it, k) => '<li role="option" data-k="' + k + '">' + esc(it.t) + ' <span>' + esc(it.s) + '</span></li>').join('');
+      sug.style.display = list.length ? 'block' : 'none';
+    }
+    function go(it) {
+      sug.style.display = 'none'; q.value = it.t;
+      if (it.i !== undefined) { const c = P[it.i]; map.flyTo({ center: [c.lon, c.lat], zoom: 16.5, duration: 1800 }); map.once('moveend', () => popup(it.i)); }
+      else map.flyTo({ center: it.c, zoom: 13.5, duration: 1800 });
+    }
+    q.addEventListener('input', () => {
+      const v = norm(q.value.trim()); if (v.length < 2) { show([]); return; }
+      if (!idx) idx = P.map(c => [norm(c.n || ''), c.i]);
+      const out = [];
+      if (places) for (const [n, x] of places) { if (n.startsWith(v)) { out.push({ t: x[0], s: 'place', c: [x[1], x[2]] }); if (out.length >= 4) break; } }
+      for (const [n, i] of idx) { if (n && (n.startsWith(v) || (v.length > 3 && n.includes(v)))) { const c = P[i]; out.push({ t: c.n, s: turn(c.b) + (D.saints[c.s] ? ' · ' + D.saints[c.s] : ''), i }); if (out.length >= 14) break; } }
+      show(out);
+    });
+    q.addEventListener('keydown', e => {
+      const lis = [...sug.children];
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(0, Math.min(lis.length - 1, sel + (e.key === 'ArrowDown' ? 1 : -1))); lis.forEach((l, k) => l.setAttribute('aria-selected', k === sel)); }
+      else if (e.key === 'Enter' && items.length) { e.preventDefault(); go(items[Math.max(sel, 0)]); }
+      else if (e.key === 'Escape') sug.style.display = 'none';
+    });
+    sug.addEventListener('click', e => { const li = e.target.closest('li'); if (li) go(items[+li.dataset.k]); });
+  }
+  $('theme').addEventListener('click', () => { const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; r.dataset.theme = dark ? 'light' : 'dark'; });
+})();
+</script>
+{{FULLSCREEN}}
+<script src="https://maps.tristanhotham.com/assets/site-nav.js" defer></script>
+</body>
+</html>
