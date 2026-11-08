@@ -1,0 +1,18 @@
+{
+  "title": "Which way do the UK's churches face? Not towards their saint's sunrise",
+  "slug": "church-orientation",
+  "excerpt": "I measured the axes of 32,007 churches from OpenStreetMap. Old churches face east, Victorian ones often face the street, and the old idea that churches point at sunrise on their patron saint's day fails: midsummer and midwinter saints' churches face the same way.",
+  "seo_description": "32,007 church axes measured: old churches face east, new ones the street, and the patron saint's sunrise makes no difference.",
+  "tags": [
+    "maps",
+    "churches",
+    "orientation",
+    "archaeoastronomy",
+    "OpenStreetMap",
+    "Wikidata",
+    "saints",
+    "data visualisation",
+    "history"
+  ],
+  "header_alt": "Title card reading 'Which way do the UK's churches face?' in black on parchment, beside a map of England and Wales covered in short red and grey strokes, one per church, with the lines '32,007 churches measured', '54% of old churches within 10° of east' and 'Midsummer and midwinter saints: 0.1° apart'."
+}

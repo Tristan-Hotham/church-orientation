@@ -1,0 +1,125 @@
+<!-- wp:paragraph -->
+<p><em>Old churches face east. Everyone knows that. But almost none of them face exactly east, and for over a century people have said why: the builders aimed at the sunrise on their patron saint's day. I measured 32,007 churches to find out. The saint makes no difference at all.</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://maps.tristanhotham.com/church-orientation/">Explore the interactive version</a></div>
+<!-- /wp:button -->
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://doi.org/10.5281/zenodo.24052501">Read the paper</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph -->
+<p>Walk into an old parish church and you are walking east, towards the altar. That much is a rule as old as Christian building in these islands. Look at an Ordnance Survey map, though, and the little crosses of the churches lean all over the place: a few degrees north here, ten degrees south there. The favourite explanation is a lovely one. On the morning of the saint's day, the story goes, the builders stood on the site, watched the sun come up, and pegged out the line of the nave towards it. A church of John the Baptist, whose feast falls at midsummer, would swing well north of east. A church of St Nicholas, in December, would swing well south.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>That is a testable idea, and OpenStreetMap makes it testable for almost every church at once. Volunteers have traced the outlines of 40,636 church buildings in the United Kingdom. I took each outline, found the long axis of the smallest rectangle that fits round it, and measured how far it turns from true east. 32,007 were clearly long enough to have an axis. Wikidata then supplied the patron saint, the date and the listing grade for many of them.</p>
+<!-- /wp:paragraph -->
+
+{{IMG|b_map.png|A map of Great Britain and Northern Ireland on parchment covered in tens of thousands of short lines, one per church. Across rural England most lines are short horizontal red strokes pointing east; in the cities, Scotland and Northern Ireland they are greyer and point every way|Every measured church, drawn along its axis and tinted by how far it turns from due east.}}
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">East, mostly, if it is old</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The first thing the map shows is that age matters more than anything. Among the historic parish churches (dated before 1540, or listed Grade I or II* where the date is unknown), 54% lie within 10° of due east and only 1.7% turn more than 45°. Churches dated 1800 to 1913 manage 25%. Churches from 1914 onwards manage 20%. Methodist, Baptist and other Free Church chapels, which never cared for the rule, manage 14%, hardly better than the 11% you would get by pointing them at random.</p>
+<!-- /wp:paragraph -->
+
+{{IMG|b_roses.png|Four compass rose diagrams. Historic parish churches form a narrow bow tie on the east to west line; churches of 1800 to 1913 a wider one; churches from 1914 and Free Church chapels spread in every direction|Historic churches cluster on east. Later churches and chapels point every way.}}
+
+{{IMG|b_groups.png|Horizontal bars showing the share of churches within 5, 10 and 20 degrees of east. It falls from 55 percent within 10 degrees for medieval churches to 20 percent for modern ones, from 54 percent for Grade I listed churches to 20 percent for unlisted ones, and from 45 percent for the Church of England to 14 percent for Free Churches|The older, grander and more Anglican the church, the truer it is to east.}}
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">The saint's day test</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For each church with a saint whose feast falls on a fixed day, I worked out where the sun rises over a flat horizon at that latitude on that day. Medieval feasts were kept in the old Julian calendar, which by the twelfth century had slipped about a week behind the sun, so for medieval churches I moved the feast to where the sun really was that morning. Then I compared the predicted sunrise with the axis.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The result is about as flat as a result can be. The historic churches of John the Baptist, Peter and the other midsummer saints point, on average, at 85.5° from north. Their feast-day sunrise is at 51°. The churches of Nicholas, Thomas, Andrew and the midwinter saints point at 85.4°. Their sunrise is at 129°. The sun moves 78° between the two sets of feasts; the churches move 0.1°.</p>
+<!-- /wp:paragraph -->
+
+{{IMG|b_saints.png|A scatter plot with one dot per saint. The horizontal axis is the sunrise direction on the saint's day, from about 50 to 130 degrees; the vertical axis is the average direction of their churches. A dashed diagonal shows where the dots would sit if churches faced the feast-day sunrise. Instead every dot lies on a flat line between 82 and 90 degrees|Each dot is a saint. If churches faced their saint's sunrise, the dots would climb the dashed line. They lie flat.}}
+
+<!-- wp:paragraph -->
+<p>The fairest test shuffles the saints among the churches at random, 10,000 times, and asks whether the real saints fit the axes better than made-up ones. They do not. The real saints miss the axis by 30.9° on average; shuffled saints miss by 30.9°. Only 3.1% of historic churches lie within 3° of their own feast-day sunrise, against 3.2% by pure chance.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:pullquote -->
+<figure class="wp-block-pullquote"><blockquote><p>The sun moves 78° between midsummer and midwinter saints. Their churches move 0.1°.</p></blockquote></figure>
+<!-- /wp:pullquote -->
+
+<!-- wp:paragraph -->
+<p>I am not the first to doubt it. Ian Hinton surveyed about 1,500 rural churches for the Antiquaries Journal in 2006 and found that churches of summer and winter saints face the same way. An earlier study of 143 important churches of the eleventh and twelfth centuries, by Jason Ali and Peter Cunich, was kinder to the idea, but needed sunrises and sunsets both to fit much of its sample. With 5,687 historic churches and a shuffle test, the answer here is plain.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">A lean to the north, stronger in the west</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>What the old churches do share is a lean. 65% of them turn north of east, on average by 4.9°. And the lean changes across the country. East of 1°E, mostly Norfolk, Suffolk and east Kent, the historic churches point at true east almost exactly. West of 3°W they lean 6.3° north. Why, I cannot say. A sunrise a few days after the spring equinox would do it, or Easter, or a way of setting out by eye that drifted from region to region. The measurements rule out the saint; they cannot pick between the rest.</p>
+<!-- /wp:paragraph -->
+
+{{IMG|b_longitude.png|A line chart and a map of England and Wales. The average northward lean of historic churches is about 6 to 7 degrees in the west and shrinks steadily to zero on the East Anglian coast|Further east, truer to east.}}
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">In towns, the street often wins</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Victorian and later churches are another story. For a random sample of 5,967 churches I read the roads around each one from OpenFreeMap's map tiles. In towns, where the street grid runs well off east, 85% of churches built from 1800 onwards line up with the streets rather than with east. A church squeezed into a terrace faces the way the terrace faces. The link runs both ways, though: lanes were often laid out round a medieval churchyard, so even old churches tend to share a line with the road outside.</p>
+<!-- /wp:paragraph -->
+
+{{IMG|b_streets.png|Two histograms of angles. For historic town churches, the angle to due east and the angle to the local streets are both small. For other town churches the angle to the streets is usually under 5 degrees while the angle to east is spread evenly|Later town churches follow their streets.}}
+
+{{IMG|b_footprints.png|Five church outlines with a red line along each one's axis: Bristol Cathedral almost exactly east, St Nicholas Cathedral in Newcastle turning 16 degrees north, Great Yarmouth Minster 12 degrees south, Coventry Cathedral running north to south, and Westminster Cathedral, of the 1890s, turned 59 degrees off east|Five footprints and their axes.}}
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">How I did this</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Every church building mapped as an outline in OpenStreetMap was laid flat around its own centre with north kept true, and the smallest rectangle that fits round it gave the axis. I kept buildings at least 1.3 times as long as wide and of a sensible size. A second way of measuring, from the direction of the walls themselves, agrees within 2° for 91% of them. Saints, dates and listing grades come from Wikidata, joined by the church's own tags or by its position; when Wikidata has no saint, the church's name is read with the parser from my saints geography study. Feast days are the usual calendar dates.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The caveats are real. A footprint is not a nave: towers, aisles and transepts bend the rectangle a little, and some outlines are traced roughly. Dates are patchy, and a Wikidata date can belong to an older church on the same site; Coventry Cathedral, rebuilt in the twentieth century on a north to south line, still carries its medieval predecessor's date. Dedications change over the centuries. I treated the horizon as flat, though a hill to the east makes the sun rise later and further south. None of that is big enough to hide an effect of 78°. The paper has the details, and the map lets you check any church yourself: zoom in and a dashed gold line shows where the sun rose on its saint's day.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://maps.tristanhotham.com/church-orientation/">Explore the interactive version</a></div>
+<!-- /wp:button -->
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://doi.org/10.5281/zenodo.24052501">Read the paper</a></div>
+<!-- /wp:button -->
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://github.com/Tristan-Hotham/church-orientation">Data and code</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Notes and sources</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Church outlines, names, denominations and dates: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, Open Database Licence, queried with QLever. Street grid: OpenFreeMap vector tiles.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Patron saints, dates and listing grades: <a href="https://www.wikidata.org/">Wikidata</a> (CC0), which draws on Historic England, Cadw and Historic Environment Scotland.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Ian Hinton (2006), Church alignment and patronal saint's days, The Antiquaries Journal 86, 206 to 226. Jason R. Ali and Peter Cunich (2001), The orientation of churches: some new evidence, The Antiquaries Journal 81, 155 to 193. T. Furuhashi and H. Terado's OpenStreetMap study of churches in Milan (FOSS4G 2026) takes a similar approach to entrances.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>I wrote the text, with drafting and editing assistance from Claude (Anthropic), which also helped prepare the analysis code. I reviewed and checked all text and results.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
