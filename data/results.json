@@ -1,0 +1,1532 @@
+{
+ "meta": {
+  "slug": "church-orientation"
+ },
+ "n": {
+  "polygons": 40636,
+  "polygons_church_tag": 27560,
+  "polygons_pow": 13076,
+  "nested": 47,
+  "not_church_building": 265,
+  "candidates": 40324,
+  "too_square": 7948,
+  "too_small": 365,
+  "too_big": 4,
+  "measured": 32007,
+  "wikidata_joined": 21956,
+  "with_saint": 18610,
+  "dated": 6750,
+  "rect_edge_agree_2deg": 90.9,
+  "by_nation": {
+   "England": 25121,
+   "Scotland": 2733,
+   "Wales": 2635,
+   "Northern Ireland": 1518
+  },
+  "exactly_east_1deg": 1472
+ },
+ "all": {
+  "n": 32007,
+  "within5": 17.6,
+  "within10": 30.4,
+  "within20": 50.7,
+  "beyond45": 26.2,
+  "median_adev": 19.6,
+  "mean_dev_eastish": -4.2,
+  "sd_dev_eastish": 19.0,
+  "north_of_east": 61.1
+ },
+ "hist_all": [
+  531,
+  421,
+  404,
+  413,
+  430,
+  448,
+  407,
+  427,
+  511,
+  601,
+  668,
+  793,
+  1118,
+  1568,
+  1977,
+  2279,
+  2449,
+  2972,
+  2661,
+  1651,
+  1271,
+  952,
+  718,
+  606,
+  475,
+  407,
+  434,
+  463,
+  437,
+  465,
+  477,
+  453,
+  534,
+  493,
+  517,
+  576
+ ],
+ "old": {
+  "n": 8565,
+  "within5": 31.2,
+  "within10": 53.5,
+  "within20": 83.7,
+  "beyond45": 1.7,
+  "median_adev": 9.2,
+  "mean_dev_eastish": -4.9,
+  "sd_dev_eastish": 13.0,
+  "north_of_east": 64.9,
+  "mean_dev_eastish_abs": 4.9
+ },
+ "by_period": {
+  "medieval": {
+   "n": 3978,
+   "within5": 32.1,
+   "within10": 55.1,
+   "within20": 86.2,
+   "beyond45": 0.6,
+   "median_adev": 8.8,
+   "mean_dev_eastish": -4.4,
+   "sd_dev_eastish": 12.5,
+   "north_of_east": 63.9
+  },
+  "early": {
+   "n": 314,
+   "within5": 29.0,
+   "within10": 45.2,
+   "within20": 65.9,
+   "beyond45": 13.7,
+   "median_adev": 13.0,
+   "mean_dev_eastish": -5.1,
+   "sd_dev_eastish": 16.1,
+   "north_of_east": 65.3
+  },
+  "victorian": {
+   "n": 1970,
+   "within5": 15.2,
+   "within10": 24.9,
+   "within20": 44.3,
+   "beyond45": 25.6,
+   "median_adev": 23.2,
+   "mean_dev_eastish": -5.2,
+   "sd_dev_eastish": 21.0,
+   "north_of_east": 62.3
+  },
+  "modern": {
+   "n": 488,
+   "within5": 11.9,
+   "within10": 19.9,
+   "within20": 35.5,
+   "beyond45": 39.3,
+   "median_adev": 31.9,
+   "mean_dev_eastish": -0.8,
+   "sd_dev_eastish": 21.9,
+   "north_of_east": 54.1
+  },
+  "unknown": {
+   "n": 25257,
+   "within5": 15.5,
+   "within10": 27.0,
+   "within20": 45.7,
+   "beyond45": 30.2,
+   "median_adev": 23.0,
+   "mean_dev_eastish": -4.1,
+   "sd_dev_eastish": 19.9,
+   "north_of_east": 60.4
+  }
+ },
+ "by_grade": {
+  "I": {
+   "n": 4385,
+   "within5": 31.1,
+   "within10": 53.8,
+   "within20": 84.7,
+   "beyond45": 1.4,
+   "median_adev": 9.1,
+   "mean_dev_eastish": -4.6,
+   "sd_dev_eastish": 12.9,
+   "north_of_east": 63.7
+  },
+  "II*": {
+   "n": 4753,
+   "within5": 29.7,
+   "within10": 50.6,
+   "within20": 79.2,
+   "beyond45": 4.1,
+   "median_adev": 9.9,
+   "mean_dev_eastish": -5.4,
+   "sd_dev_eastish": 13.8,
+   "north_of_east": 66.3
+  },
+  "II": {
+   "n": 5728,
+   "within5": 19.4,
+   "within10": 33.2,
+   "within20": 54.8,
+   "beyond45": 18.9,
+   "median_adev": 17.5,
+   "mean_dev_eastish": -5.4,
+   "sd_dev_eastish": 18.4,
+   "north_of_east": 63.8
+  },
+  "A": {
+   "n": 236,
+   "within5": 20.3,
+   "within10": 33.5,
+   "within20": 52.5,
+   "beyond45": 18.6,
+   "median_adev": 18.0,
+   "mean_dev_eastish": -7.3,
+   "sd_dev_eastish": 18.7,
+   "north_of_east": 64.1
+  },
+  "B": {
+   "n": 881,
+   "within5": 14.9,
+   "within10": 25.1,
+   "within20": 42.8,
+   "beyond45": 32.6,
+   "median_adev": 25.3,
+   "mean_dev_eastish": -5.7,
+   "sd_dev_eastish": 20.3,
+   "north_of_east": 64.5
+  },
+  "C": {
+   "n": 294,
+   "within5": 9.9,
+   "within10": 21.1,
+   "within20": 37.4,
+   "beyond45": 37.8,
+   "median_adev": 29.0,
+   "mean_dev_eastish": -3.7,
+   "sd_dev_eastish": 21.4,
+   "north_of_east": 57.4
+  },
+  "none": {
+   "n": 4771,
+   "within5": 11.7,
+   "within10": 19.8,
+   "within20": 36.5,
+   "beyond45": 35.7,
+   "median_adev": 30.3,
+   "mean_dev_eastish": -2.7,
+   "sd_dev_eastish": 22.7,
+   "north_of_east": 55.8
+  }
+ },
+ "by_denom": {
+  "anglican": {
+   "n": 14987,
+   "within5": 26.4,
+   "within10": 44.8,
+   "within20": 71.8,
+   "beyond45": 8.0,
+   "median_adev": 11.6,
+   "mean_dev_eastish": -4.8,
+   "sd_dev_eastish": 15.6,
+   "north_of_east": 63.9
+  },
+  "catholic": {
+   "n": 2093,
+   "within5": 9.5,
+   "within10": 17.0,
+   "within20": 31.2,
+   "beyond45": 41.9,
+   "median_adev": 36.0,
+   "mean_dev_eastish": -3.6,
+   "sd_dev_eastish": 23.1,
+   "north_of_east": 58.0
+  },
+  "scotland": {
+   "n": 1318,
+   "within5": 11.5,
+   "within10": 19.0,
+   "within20": 35.0,
+   "beyond45": 39.2,
+   "median_adev": 34.2,
+   "mean_dev_eastish": -4.2,
+   "sd_dev_eastish": 22.6,
+   "north_of_east": 59.9
+  },
+  "nonconformist": {
+   "n": 5125,
+   "within5": 7.5,
+   "within10": 14.2,
+   "within20": 26.6,
+   "beyond45": 48.4,
+   "median_adev": 43.5,
+   "mean_dev_eastish": -1.9,
+   "sd_dev_eastish": 24.2,
+   "north_of_east": 54.4
+  },
+  "orthodox": {
+   "n": 83,
+   "within5": 16.9,
+   "within10": 21.7,
+   "within20": 43.4,
+   "beyond45": 34.9,
+   "median_adev": 28.1,
+   "mean_dev_eastish": -6.1,
+   "sd_dev_eastish": 20.6,
+   "north_of_east": 61.1
+  },
+  "other": {
+   "n": 1417,
+   "within5": 8.3,
+   "within10": 15.9,
+   "within20": 28.1,
+   "beyond45": 47.6,
+   "median_adev": 43.3,
+   "mean_dev_eastish": -2.0,
+   "sd_dev_eastish": 23.6,
+   "north_of_east": 54.5
+  },
+  "unknown": {
+   "n": 6984,
+   "within5": 11.6,
+   "within10": 20.7,
+   "within20": 36.4,
+   "beyond45": 37.5,
+   "median_adev": 30.8,
+   "mean_dev_eastish": -3.9,
+   "sd_dev_eastish": 21.8,
+   "north_of_east": 58.5
+  }
+ },
+ "by_denom_victorian_modern": {
+  "anglican": {
+   "n": 1044,
+   "within5": 20.9,
+   "within10": 32.7,
+   "within20": 55.1,
+   "beyond45": 15.2,
+   "median_adev": 17.2,
+   "mean_dev_eastish": -5.8,
+   "sd_dev_eastish": 19.2,
+   "north_of_east": 64.6
+  },
+  "catholic": {
+   "n": 503,
+   "within5": 8.9,
+   "within10": 17.5,
+   "within20": 32.2,
+   "beyond45": 39.2,
+   "median_adev": 32.6,
+   "mean_dev_eastish": -3.4,
+   "sd_dev_eastish": 23.1,
+   "north_of_east": 57.8
+  },
+  "scotland": {
+   "n": 218,
+   "within5": 12.8,
+   "within10": 17.9,
+   "within20": 35.3,
+   "beyond45": 38.5,
+   "median_adev": 33.4,
+   "mean_dev_eastish": -0.8,
+   "sd_dev_eastish": 22.9,
+   "north_of_east": 52.2
+  },
+  "nonconformist": {
+   "n": 208,
+   "within5": 9.1,
+   "within10": 16.8,
+   "within20": 29.3,
+   "beyond45": 49.0,
+   "median_adev": 41.8,
+   "mean_dev_eastish": 0.8,
+   "sd_dev_eastish": 21.4,
+   "north_of_east": 48.1
+  },
+  "orthodox": {
+   "n": 11,
+   "within5": 18.2,
+   "within10": 27.3,
+   "within20": 36.4,
+   "beyond45": 27.3,
+   "median_adev": 28.1,
+   "mean_dev_eastish": -11.5,
+   "sd_dev_eastish": 19.8,
+   "north_of_east": 62.5
+  },
+  "other": {
+   "n": 53,
+   "within5": 9.4,
+   "within10": 20.8,
+   "within20": 34.0,
+   "beyond45": 30.2,
+   "median_adev": 26.0,
+   "mean_dev_eastish": -6.3,
+   "sd_dev_eastish": 21.9,
+   "north_of_east": 64.9
+  },
+  "unknown": {
+   "n": 421,
+   "within5": 9.5,
+   "within10": 16.9,
+   "within20": 35.2,
+   "beyond45": 32.1,
+   "median_adev": 30.5,
+   "mean_dev_eastish": -4.8,
+   "sd_dev_eastish": 23.6,
+   "north_of_east": 61.2
+  }
+ },
+ "by_nation": {
+  "England": {
+   "n": 25121,
+   "within5": 19.1,
+   "within10": 32.9,
+   "within20": 54.3,
+   "beyond45": 23.7,
+   "median_adev": 17.6,
+   "mean_dev_eastish": -4.0,
+   "sd_dev_eastish": 18.3,
+   "north_of_east": 61.1
+  },
+  "Wales": {
+   "n": 2635,
+   "within5": 12.7,
+   "within10": 22.3,
+   "within20": 40.6,
+   "beyond45": 31.5,
+   "median_adev": 26.4,
+   "mean_dev_eastish": -6.2,
+   "sd_dev_eastish": 21.2,
+   "north_of_east": 64.2
+  },
+  "Scotland": {
+   "n": 2733,
+   "within5": 12.5,
+   "within10": 21.6,
+   "within20": 37.4,
+   "beyond45": 37.0,
+   "median_adev": 30.4,
+   "mean_dev_eastish": -4.6,
+   "sd_dev_eastish": 21.7,
+   "north_of_east": 61.0
+  },
+  "Northern Ireland": {
+   "n": 1518,
+   "within5": 10.7,
+   "within10": 19.2,
+   "within20": 32.5,
+   "beyond45": 39.7,
+   "median_adev": 34.3,
+   "mean_dev_eastish": -2.8,
+   "sd_dev_eastish": 22.9,
+   "north_of_east": 55.7
+  }
+ },
+ "by_src": {
+  "church": {
+   "n": 22271,
+   "within5": 19.2,
+   "within10": 33.2,
+   "within20": 54.5,
+   "beyond45": 23.0,
+   "median_adev": 17.5,
+   "mean_dev_eastish": -4.3,
+   "sd_dev_eastish": 18.3,
+   "north_of_east": 61.5
+  },
+  "pow": {
+   "n": 9736,
+   "within5": 14.0,
+   "within10": 24.0,
+   "within20": 41.9,
+   "beyond45": 33.7,
+   "median_adev": 25.9,
+   "mean_dev_eastish": -3.9,
+   "sd_dev_eastish": 20.6,
+   "north_of_east": 60.0
+  }
+ },
+ "hist_old": [
+  7,
+  6,
+  7,
+  4,
+  6,
+  8,
+  4,
+  7,
+  25,
+  37,
+  73,
+  142,
+  252,
+  485,
+  783,
+  1068,
+  1197,
+  1431,
+  1243,
+  710,
+  480,
+  259,
+  136,
+  69,
+  26,
+  17,
+  11,
+  8,
+  7,
+  14,
+  5,
+  7,
+  8,
+  7,
+  9,
+  7
+ ],
+ "hist_modern": [
+  38,
+  22,
+  35,
+  28,
+  37,
+  42,
+  42,
+  49,
+  51,
+  51,
+  70,
+  97,
+  104,
+  130,
+  149,
+  144,
+  144,
+  185,
+  172,
+  87,
+  96,
+  67,
+  71,
+  58,
+  50,
+  38,
+  48,
+  42,
+  43,
+  26,
+  35,
+  32,
+  40,
+  38,
+  40,
+  57
+ ],
+ "hist_nonconf": [
+  217,
+  181,
+  162,
+  176,
+  182,
+  175,
+  160,
+  156,
+  169,
+  191,
+  173,
+  201,
+  238,
+  254,
+  225,
+  277,
+  283,
+  303,
+  278,
+  217,
+  219,
+  211,
+  163,
+  178,
+  155,
+  121,
+  173,
+  152,
+  154,
+  173,
+  197,
+  178,
+  217,
+  224,
+  223,
+  262
+ ],
+ "by_longitude_old": [
+  {
+   "lon": -5.5,
+   "n": 65,
+   "mean_dev": -5.7,
+   "median_dev": -6.1
+  },
+  {
+   "lon": -4.5,
+   "n": 384,
+   "mean_dev": -5.4,
+   "median_dev": -4.6
+  },
+  {
+   "lon": -3.5,
+   "n": 655,
+   "mean_dev": -6.9,
+   "median_dev": -7.2
+  },
+  {
+   "lon": -2.5,
+   "n": 1548,
+   "mean_dev": -6.2,
+   "median_dev": -5.5
+  },
+  {
+   "lon": -1.5,
+   "n": 1748,
+   "mean_dev": -5.7,
+   "median_dev": -5.1
+  },
+  {
+   "lon": -0.5,
+   "n": 1855,
+   "mean_dev": -4.9,
+   "median_dev": -4.4
+  },
+  {
+   "lon": 0.5,
+   "n": 1249,
+   "mean_dev": -3.6,
+   "median_dev": -3.5
+  },
+  {
+   "lon": 1.5,
+   "n": 774,
+   "mean_dev": 0.3,
+   "median_dev": 0.0
+  }
+ ],
+ "lon_slope_old": {
+  "deg_per_deg_lon": 0.94,
+  "n": 8278,
+  "r": 0.115,
+  "west_mean": -6.3,
+  "east_mean": -2.1,
+  "n_west": 1104,
+  "n_east": 2023,
+  "west_mean_abs": 6.3
+ },
+ "feast": {
+  "all": {
+   "label": "all churches with a fixed-feast saint",
+   "n": 11582,
+   "n_saints": 68,
+   "mean_abs_err": 34.47,
+   "perm_mean": 34.32,
+   "perm_p05": 34.06,
+   "p_value": 0.8202,
+   "within3": 3.7,
+   "within3_perm": 4.0,
+   "within3_perm_p95": 4.3,
+   "east_mean_abs_err": 18.8
+  },
+  "old": {
+   "label": "historic parish churches",
+   "n": 5687,
+   "n_saints": 66,
+   "mean_abs_err": 30.87,
+   "perm_mean": 30.86,
+   "perm_p05": 30.59,
+   "p_value": 0.5367,
+   "within3": 3.1,
+   "within3_perm": 3.2,
+   "within3_perm_p95": 3.5,
+   "east_mean_abs_err": 11.16
+  },
+  "medieval_dated": {
+   "label": "dated before 1540",
+   "n": 2626,
+   "n_saints": 62,
+   "mean_abs_err": 31.1,
+   "perm_mean": 30.96,
+   "perm_p05": 30.56,
+   "p_value": 0.7208,
+   "within3": 3.0,
+   "within3_perm": 2.9,
+   "within3_perm_p95": 3.5,
+   "east_mean_abs_err": 10.64
+  },
+  "victorian_modern": {
+   "label": "dated 1800 onwards",
+   "n": 941,
+   "n_saints": 61,
+   "mean_abs_err": 39.44,
+   "perm_mean": 37.71,
+   "perm_p05": 36.58,
+   "p_value": 0.9946,
+   "within3": 4.8,
+   "within3_perm": 5.0,
+   "within3_perm_p95": 6.2,
+   "east_mean_abs_err": 26.34
+  }
+ },
+ "saints_old": [
+  {
+   "saint": "Botolph",
+   "feast": "06-17",
+   "n": 49,
+   "mean_bearing": 85.0,
+   "se": 1.56,
+   "pred": 49.4,
+   "pred_gregorian": 49.5
+  },
+  {
+   "saint": "John the Baptist",
+   "feast": "06-24",
+   "n": 371,
+   "mean_bearing": 85.0,
+   "se": 0.68,
+   "pred": 50.1,
+   "pred_gregorian": 49.6
+  },
+  {
+   "saint": "Peter",
+   "feast": "06-29",
+   "n": 823,
+   "mean_bearing": 85.7,
+   "se": 0.45,
+   "pred": 50.8,
+   "pred_gregorian": 49.8
+  },
+  {
+   "saint": "Peter and Paul",
+   "feast": "06-29",
+   "n": 29,
+   "mean_bearing": 89.7,
+   "se": 3.09,
+   "pred": 50.9,
+   "pred_gregorian": 49.9
+  },
+  {
+   "saint": "Swithun",
+   "feast": "07-15",
+   "n": 40,
+   "mean_bearing": 83.8,
+   "se": 1.99,
+   "pred": 55.4,
+   "pred_gregorian": 53.1
+  },
+  {
+   "saint": "Margaret",
+   "feast": "07-20",
+   "n": 177,
+   "mean_bearing": 86.1,
+   "se": 0.97,
+   "pred": 57.1,
+   "pred_gregorian": 54.4
+  },
+  {
+   "saint": "Mary Magdalene",
+   "feast": "07-22",
+   "n": 161,
+   "mean_bearing": 86.4,
+   "se": 1.0,
+   "pred": 58.1,
+   "pred_gregorian": 55.3
+  },
+  {
+   "saint": "James",
+   "feast": "07-25",
+   "n": 227,
+   "mean_bearing": 83.5,
+   "se": 0.82,
+   "pred": 59.5,
+   "pred_gregorian": 56.5
+  },
+  {
+   "saint": "Oswald",
+   "feast": "08-05",
+   "n": 45,
+   "mean_bearing": 83.2,
+   "se": 1.82,
+   "pred": 63.9,
+   "pred_gregorian": 60.1
+  },
+  {
+   "saint": "George",
+   "feast": "04-23",
+   "n": 87,
+   "mean_bearing": 85.0,
+   "se": 1.31,
+   "pred": 65.9,
+   "pred_gregorian": 69.9
+  },
+  {
+   "saint": "Lawrence",
+   "feast": "08-10",
+   "n": 163,
+   "mean_bearing": 85.6,
+   "se": 0.93,
+   "pred": 67.3,
+   "pred_gregorian": 63.6
+  },
+  {
+   "saint": "Helen",
+   "feast": "08-18",
+   "n": 72,
+   "mean_bearing": 84.1,
+   "se": 1.29,
+   "pred": 71.4,
+   "pred_gregorian": 67.4
+  },
+  {
+   "saint": "Bartholomew",
+   "feast": "08-24",
+   "n": 102,
+   "mean_bearing": 86.5,
+   "se": 1.13,
+   "pred": 75.5,
+   "pred_gregorian": 71.3
+  },
+  {
+   "saint": "Giles",
+   "feast": "09-01",
+   "n": 101,
+   "mean_bearing": 84.1,
+   "se": 1.26,
+   "pred": 80.2,
+   "pred_gregorian": 75.9
+  },
+  {
+   "saint": "Cuthbert",
+   "feast": "03-20",
+   "n": 40,
+   "mean_bearing": 82.8,
+   "se": 2.19,
+   "pred": 86.1,
+   "pred_gregorian": 90.8
+  },
+  {
+   "saint": "Matthew",
+   "feast": "09-21",
+   "n": 29,
+   "mean_bearing": 86.6,
+   "se": 3.31,
+   "pred": 92.8,
+   "pred_gregorian": 88.3
+  },
+  {
+   "saint": "Michael",
+   "feast": "09-29",
+   "n": 527,
+   "mean_bearing": 85.7,
+   "se": 0.58,
+   "pred": 97.9,
+   "pred_gregorian": 93.4
+  },
+  {
+   "saint": "Chad",
+   "feast": "03-02",
+   "n": 28,
+   "mean_bearing": 81.9,
+   "se": 2.54,
+   "pred": 98.0,
+   "pred_gregorian": 102.5
+  },
+  {
+   "saint": "David",
+   "feast": "03-01",
+   "n": 26,
+   "mean_bearing": 87.4,
+   "se": 2.92,
+   "pred": 98.3,
+   "pred_gregorian": 102.8
+  },
+  {
+   "saint": "Denys",
+   "feast": "10-09",
+   "n": 28,
+   "mean_bearing": 86.5,
+   "se": 1.91,
+   "pred": 104.2,
+   "pred_gregorian": 99.7
+  },
+  {
+   "saint": "Wilfrid",
+   "feast": "10-12",
+   "n": 29,
+   "mean_bearing": 85.3,
+   "se": 2.4,
+   "pred": 106.5,
+   "pred_gregorian": 101.9
+  },
+  {
+   "saint": "Luke",
+   "feast": "10-18",
+   "n": 34,
+   "mean_bearing": 81.9,
+   "se": 1.86,
+   "pred": 109.8,
+   "pred_gregorian": 105.4
+  },
+  {
+   "saint": "All Saints",
+   "feast": "11-01",
+   "n": 926,
+   "mean_bearing": 85.3,
+   "se": 0.41,
+   "pred": 117.5,
+   "pred_gregorian": 113.7
+  },
+  {
+   "saint": "Leonard",
+   "feast": "11-06",
+   "n": 99,
+   "mean_bearing": 84.0,
+   "se": 1.2,
+   "pred": 120.0,
+   "pred_gregorian": 116.3
+  },
+  {
+   "saint": "Martin",
+   "feast": "11-11",
+   "n": 110,
+   "mean_bearing": 83.8,
+   "se": 1.33,
+   "pred": 122.2,
+   "pred_gregorian": 118.9
+  },
+  {
+   "saint": "Edmund",
+   "feast": "11-20",
+   "n": 45,
+   "mean_bearing": 86.5,
+   "se": 1.78,
+   "pred": 126.2,
+   "pred_gregorian": 123.4
+  },
+  {
+   "saint": "Catherine",
+   "feast": "11-25",
+   "n": 45,
+   "mean_bearing": 83.0,
+   "se": 1.92,
+   "pred": 127.2,
+   "pred_gregorian": 124.8
+  },
+  {
+   "saint": "Thomas Becket",
+   "feast": "12-29",
+   "n": 57,
+   "mean_bearing": 84.2,
+   "se": 1.47,
+   "pred": 128.5,
+   "pred_gregorian": 129.6
+  },
+  {
+   "saint": "Andrew",
+   "feast": "11-30",
+   "n": 485,
+   "mean_bearing": 86.5,
+   "se": 0.57,
+   "pred": 128.8,
+   "pred_gregorian": 126.9
+  },
+  {
+   "saint": "Stephen",
+   "feast": "12-26",
+   "n": 34,
+   "mean_bearing": 84.3,
+   "se": 2.64,
+   "pred": 129.0,
+   "pred_gregorian": 129.8
+  },
+  {
+   "saint": "Nicholas",
+   "feast": "12-06",
+   "n": 303,
+   "mean_bearing": 84.6,
+   "se": 0.72,
+   "pred": 129.6,
+   "pred_gregorian": 128.3
+  },
+  {
+   "saint": "John the Evangelist",
+   "feast": "12-27",
+   "n": 76,
+   "mean_bearing": 84.6,
+   "se": 1.62,
+   "pred": 129.7,
+   "pred_gregorian": 130.6
+  }
+ ],
+ "saint_regression": {
+  "n_saints": 32,
+  "n_churches": 5368,
+  "slope": -0.001,
+  "r": -0.198,
+  "pred_range": [
+   49.4,
+   129.7
+  ],
+  "obs_range": [
+   81.9,
+   89.7
+  ],
+  "pred_span": 80.3,
+  "obs_span": 7.8
+ },
+ "summer_winter": {
+  "summer_n": 1281,
+  "summer_mean_bearing": 85.5,
+  "summer_pred": 50.6,
+  "winter_n": 1073,
+  "winter_mean_bearing": 85.4,
+  "winter_pred": 128.9,
+  "summer_n_all": 1294,
+  "winter_n_all": 1089,
+  "obs_gap": -0.1,
+  "pred_gap": 78.3,
+  "p": 0.793,
+  "obs_gap_abs": 0.1
+ },
+ "mary": {
+  "n": 1578,
+  "mean_bearing": 85.1,
+  "feasts": {
+   "Purification (2 Feb)": {
+    "pred": 114.7
+   },
+   "Annunciation (25 Mar)": {
+    "pred": 83.0
+   },
+   "Assumption (15 Aug)": {
+    "pred": 70.2
+   },
+   "Nativity of Mary (8 Sep)": {
+    "pred": 84.6
+   }
+  },
+  "closest_feast": "Nativity of Mary (8 Sep)"
+ },
+ "old_mean_bearing": 85.1,
+ "old_median_bearing": 85.6,
+ "streets_sample": {
+  "n": 5967,
+  "urban_threshold_m": 2000,
+  "radius_m": 150
+ },
+ "streets": {
+  "urban": {
+   "n": 1857,
+   "median_d_grid": 5.5,
+   "median_d_east": 18.4,
+   "grid_within5": 47.5,
+   "east_within5": 15.6,
+   "n_distinct": 1089,
+   "closer_to_grid": 84.21,
+   "near_within5": 67.2
+  },
+  "rural": {
+   "n": 4110,
+   "median_d_grid": 8.5,
+   "median_d_east": 13.1,
+   "grid_within5": 33.7,
+   "east_within5": 23.9,
+   "n_distinct": 2518,
+   "closer_to_grid": 61.76,
+   "near_within5": 43.7
+  },
+  "urban_old": {
+   "n": 137,
+   "median_d_grid": 9.1,
+   "median_d_east": 12.2,
+   "grid_within5": 33.6,
+   "east_within5": 19.0,
+   "n_distinct": 73,
+   "closer_to_grid": 58.9,
+   "near_within5": 46.0
+  },
+  "urban_victorian_modern": {
+   "n": 195,
+   "median_d_grid": 4.8,
+   "median_d_east": 18.4,
+   "grid_within5": 51.8,
+   "east_within5": 19.0,
+   "n_distinct": 110,
+   "closer_to_grid": 84.55,
+   "near_within5": 69.8
+  },
+  "urban_nonconf_catholic": {
+   "n": 684,
+   "median_d_grid": 5.4,
+   "median_d_east": 18.7,
+   "grid_within5": 47.8,
+   "east_within5": 15.4,
+   "n_distinct": 381,
+   "closer_to_grid": 89.5,
+   "near_within5": 69.6
+  },
+  "urban_anglican": {
+   "n": 486,
+   "median_d_grid": 5.8,
+   "median_d_east": 16.6,
+   "grid_within5": 45.1,
+   "east_within5": 18.1,
+   "n_distinct": 286,
+   "closer_to_grid": 74.83,
+   "near_within5": 60.9
+  },
+  "all": {
+   "n": 5967,
+   "median_d_grid": 7.4,
+   "median_d_east": 14.8,
+   "grid_within5": 38.0,
+   "east_within5": 21.3,
+   "n_distinct": 3607,
+   "closer_to_grid": 68.53,
+   "near_within5": 51.7
+  },
+  "urban_east_vs_rural": {
+   "urban": {
+    "n": 1857,
+    "within5": 10.4,
+    "within10": 18.3,
+    "within20": 34.4,
+    "beyond45": 40.2,
+    "median_adev": 33.3,
+    "mean_dev_eastish": -4.1,
+    "sd_dev_eastish": 22.1,
+    "north_of_east": 60.3
+   },
+   "rural": {
+    "n": 4110,
+    "within5": 21.2,
+    "within10": 35.4,
+    "within20": 57.4,
+    "beyond45": 20.9,
+    "median_adev": 16.0,
+    "mean_dev_eastish": -4.3,
+    "sd_dev_eastish": 17.8,
+    "north_of_east": 62.0
+   }
+  }
+ },
+ "examples_far_old": [
+  {
+   "name": "Church of St Agnes and St Pancras",
+   "bearing": 179.8,
+   "dev": 89.8,
+   "lon": -2.939831,
+   "lat": 53.389561,
+   "osm": "w421283726",
+   "qid": "Q5117195"
+  },
+  {
+   "name": "St Patrick's",
+   "bearing": 0.8,
+   "dev": -89.2,
+   "lon": -4.769846,
+   "lat": 55.946558,
+   "osm": "w505072888",
+   "qid": "Q15129948"
+  },
+  {
+   "name": "Skelmorlie Aisle",
+   "bearing": 178.9,
+   "dev": 88.9,
+   "lon": -4.868522,
+   "lat": 55.794748,
+   "osm": "w752579533",
+   "qid": "Q7534498"
+  },
+  {
+   "name": "St Augustine's Scottish Episcopal Church",
+   "bearing": 178.8,
+   "dev": 88.8,
+   "lon": -4.568357,
+   "lat": 55.943383,
+   "osm": "w1227619612",
+   "qid": "Q15129921"
+  },
+  {
+   "name": "The Anglican Chapel",
+   "bearing": 1.3,
+   "dev": -88.7,
+   "lon": -0.225729,
+   "lat": 51.52853,
+   "osm": "w24790211",
+   "qid": "Q17527910"
+  },
+  {
+   "name": "Mccheyne Memorial Church, 328 Perth Road, Dundee",
+   "bearing": 178.2,
+   "dev": 88.2,
+   "lon": -2.995559,
+   "lat": 56.4562,
+   "osm": "w1144512111",
+   "qid": "Q17575778"
+  },
+  {
+   "name": "Bridge Chapel",
+   "bearing": 177.7,
+   "dev": 87.7,
+   "lon": -1.358179,
+   "lat": 53.432689,
+   "osm": "w284087273",
+   "qid": "Q17529413"
+  },
+  {
+   "name": "St Peter",
+   "bearing": 2.5,
+   "dev": -87.5,
+   "lon": -1.19285,
+   "lat": 52.046811,
+   "osm": "w777243265",
+   "qid": "Q17527270"
+  },
+  {
+   "name": "Barclay Viewforth Parish Church",
+   "bearing": 176.4,
+   "dev": 86.4,
+   "lon": -3.20341,
+   "lat": 55.94043,
+   "osm": "r9821096",
+   "qid": "Q4859957"
+  },
+  {
+   "name": "Saint Columbkille's Church",
+   "bearing": 176.2,
+   "dev": 86.2,
+   "lon": -4.214034,
+   "lat": 55.827826,
+   "osm": "w686212274",
+   "qid": "Q17572373"
+  },
+  {
+   "name": "Holy Trinity",
+   "bearing": 175.6,
+   "dev": 85.6,
+   "lon": -0.178818,
+   "lat": 51.500027,
+   "osm": "w27765401",
+   "qid": "Q5886589"
+  },
+  {
+   "name": "The Gate Christian Fellowship",
+   "bearing": 175.1,
+   "dev": 85.1,
+   "lon": -2.985381,
+   "lat": 56.456061,
+   "osm": "w621764826",
+   "qid": "Q17575776"
+  },
+  {
+   "name": "Coventry Cathedral Church of St Michael",
+   "bearing": 5.4,
+   "dev": -84.6,
+   "lon": -1.507081,
+   "lat": 52.408604,
+   "osm": "w25312607",
+   "qid": "Q1138070"
+  },
+  {
+   "name": "St Bennet's Archiepiscopal Chapel",
+   "bearing": 173.7,
+   "dev": 83.7,
+   "lon": -3.204852,
+   "lat": 55.932571,
+   "osm": "w303079916",
+   "qid": "Q17569598"
+  },
+  {
+   "name": "Glasgow Evangelical Church",
+   "bearing": 6.9,
+   "dev": -83.1,
+   "lon": -4.235088,
+   "lat": 55.861323,
+   "osm": "w102152725",
+   "qid": "Q17567368"
+  },
+  {
+   "name": "St Andrew's East Church, 681 Alexandra Parade, Glasgow",
+   "bearing": 8.1,
+   "dev": -82.0,
+   "lon": -4.208565,
+   "lat": 55.863093,
+   "osm": "w118198664",
+   "qid": "Q17569090"
+  },
+  {
+   "name": "All Souls' Invergowrie Episcopal Church",
+   "bearing": 8.3,
+   "dev": -81.7,
+   "lon": -3.062766,
+   "lat": 56.460898,
+   "osm": "w210211187",
+   "qid": "Q17574423"
+  },
+  {
+   "name": "St Georges Church",
+   "bearing": 171.2,
+   "dev": 81.2,
+   "lon": -3.488475,
+   "lat": 50.902064,
+   "osm": "w133727483",
+   "qid": "Q15979349"
+  },
+  {
+   "name": "The Blessed Virgin and Holy Child",
+   "bearing": 170.9,
+   "dev": 80.9,
+   "lon": -1.450097,
+   "lat": 50.821174,
+   "osm": "w143377812",
+   "qid": "Q17528444"
+  },
+  {
+   "name": "St Andrew’s Roman Catholic Church, Rothesay",
+   "bearing": 170.8,
+   "dev": 80.8,
+   "lon": -5.058361,
+   "lat": 55.836231,
+   "osm": "w967372091",
+   "qid": "Q2323868"
+  },
+  {
+   "name": "St Margaret's Chapel",
+   "bearing": 170.6,
+   "dev": 80.6,
+   "lon": -3.200427,
+   "lat": 55.934599,
+   "osm": "w402721159",
+   "qid": "Q11839020"
+  },
+  {
+   "name": "St Columba",
+   "bearing": 10.8,
+   "dev": -79.2,
+   "lon": -5.042463,
+   "lat": 50.421649,
+   "osm": "w871155619",
+   "qid": "Q7592853"
+  },
+  {
+   "name": "Ss Mary & Everilda, Everingham",
+   "bearing": 169.1,
+   "dev": 79.1,
+   "lon": -0.776073,
+   "lat": 53.86937,
+   "osm": "w334752575",
+   "qid": "Q7586624"
+  },
+  {
+   "name": "St John The Evangelist",
+   "bearing": 167.9,
+   "dev": 77.9,
+   "lon": -0.118085,
+   "lat": 51.30772,
+   "osm": "w181643022",
+   "qid": "Q17527487"
+  },
+  {
+   "name": "St. Andrew's Church, Tongue",
+   "bearing": 167.3,
+   "dev": 77.3,
+   "lon": -4.418319,
+   "lat": 58.478829,
+   "osm": "w374624842",
+   "qid": "Q17567395"
+  },
+  {
+   "name": "Govan Old Parish Church",
+   "bearing": 12.8,
+   "dev": -77.2,
+   "lon": -4.312997,
+   "lat": 55.864614,
+   "osm": "w49859412",
+   "qid": "Q5588564"
+  },
+  {
+   "name": "St. Andrew's Handsworth",
+   "bearing": 12.9,
+   "dev": -77.1,
+   "lon": -1.936242,
+   "lat": 52.514158,
+   "osm": "w95535875",
+   "qid": "Q15979299"
+  },
+  {
+   "name": "The Church Of St Martin Within Ludgate",
+   "bearing": 13.4,
+   "dev": -76.6,
+   "lon": -0.101936,
+   "lat": 51.514103,
+   "osm": "w107643576",
+   "qid": "Q7594206"
+  },
+  {
+   "name": "Saint Chad's Church",
+   "bearing": 166.4,
+   "dev": 76.4,
+   "lon": -2.758961,
+   "lat": 52.707288,
+   "osm": "w28079949",
+   "qid": "Q7592791"
+  },
+  {
+   "name": "Former Holy Trinity Church",
+   "bearing": 13.8,
+   "dev": -76.2,
+   "lon": -0.143687,
+   "lat": 51.524375,
+   "osm": "w58603890",
+   "qid": "Q14993437"
+  },
+  {
+   "name": "St Andrew's Cathedral",
+   "bearing": 14.2,
+   "dev": -75.8,
+   "lon": -4.229128,
+   "lat": 57.474497,
+   "osm": "w307494100",
+   "qid": "Q2399661"
+  },
+  {
+   "name": "The Church of the Holy Angels",
+   "bearing": 165.6,
+   "dev": 75.6,
+   "lon": -1.816197,
+   "lat": 52.804827,
+   "osm": "w250384608",
+   "qid": "Q5117876"
+  },
+  {
+   "name": "St. Mary-Le-Bow",
+   "bearing": 14.8,
+   "dev": -75.2,
+   "lon": -0.093552,
+   "lat": 51.513728,
+   "osm": "w90244113",
+   "qid": "Q2301992"
+  },
+  {
+   "name": "Saint Peter's Church",
+   "bearing": 165.2,
+   "dev": 75.2,
+   "lon": -3.310887,
+   "lat": 53.115463,
+   "osm": "w124855857",
+   "qid": "Q17737401"
+  },
+  {
+   "name": "All Saints Presbyterian Church",
+   "bearing": 164.9,
+   "dev": 74.9,
+   "lon": -1.606969,
+   "lat": 54.970143,
+   "osm": "w145315452",
+   "qid": "Q4729333"
+  },
+  {
+   "name": "St. Marylebone Parish Church",
+   "bearing": 164.5,
+   "dev": 74.5,
+   "lon": -0.152318,
+   "lat": 51.522654,
+   "osm": "w80888188",
+   "qid": "Q211300"
+  },
+  {
+   "name": "St Helen's Church",
+   "bearing": 162.7,
+   "dev": 72.7,
+   "lon": -1.282858,
+   "lat": 51.667571,
+   "osm": "w58603650",
+   "qid": "Q7593308"
+  },
+  {
+   "name": "South Molton Cemetery Chapels",
+   "bearing": 17.9,
+   "dev": -72.1,
+   "lon": -3.832222,
+   "lat": 51.014681,
+   "osm": "w69302135",
+   "qid": "Q17526717"
+  },
+  {
+   "name": "St Mary the Immaculate Conception",
+   "bearing": 161.2,
+   "dev": 71.2,
+   "lon": -3.008124,
+   "lat": 56.470836,
+   "osm": "w1163944806",
+   "qid": "Q17575666"
+  },
+  {
+   "name": "Canongate Kirk",
+   "bearing": 160.1,
+   "dev": 70.1,
+   "lon": -3.17962,
+   "lat": 55.951826,
+   "osm": "w4330157",
+   "qid": "Q6415559"
+  }
+ ],
+ "chance10": 11.1,
+ "min_ratio": 1.3,
+ "min_area": 60,
+ "max_area": 8000,
+ "lon_east_band": {
+  "lon": 1.5,
+  "n": 774,
+  "mean_dev": 0.3,
+  "median_dev": 0.0
+ },
+ "examples_footprints": [
+  {
+   "osm": "w48937931",
+   "name": "Bristol Cathedral",
+   "bearing": 89.6,
+   "dev": -0.4,
+   "caption": "on the button"
+  },
+  {
+   "osm": "w145633296",
+   "name": "St Nicholas Cathedral",
+   "bearing": 73.6,
+   "dev": -16.4,
+   "caption": "north of east"
+  },
+  {
+   "osm": "w175607632",
+   "name": "Great Yarmouth Minster",
+   "bearing": 102.2,
+   "dev": 12.2,
+   "caption": "south of east"
+  },
+  {
+   "osm": "w25312607",
+   "name": "Coventry Cathedral Church of St Michael",
+   "bearing": 5.4,
+   "dev": -84.6,
+   "caption": "north to south"
+  },
+  {
+   "osm": "w10810446",
+   "name": "Westminster Cathedral",
+   "bearing": 149.3,
+   "dev": 59.3,
+   "caption": "Victorian, far off east"
+  }
+ ]
+}
