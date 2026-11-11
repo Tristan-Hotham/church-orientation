@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this data or code, please cite it as below."
+title: "Which Way Do the UK's Churches Face? The Axes of Church Footprints from OpenStreetMap and a Test of the Patron Saint's Sunrise"
+type: dataset
+authors:
+  - family-names: Hotham
+    given-names: Tristan
+    orcid: "https://orcid.org/0000-0003-4931-9349"
+    affiliation: "Independent researcher"
+doi: "10.5281/zenodo.24052501"
+url: "https://maps.tristanhotham.com/church-orientation/"
+repository-code: "https://github.com/Tristan-Hotham/church-orientation"
+license: CC-BY-4.0
+keywords:
+  - "church orientation"
+  - "archaeoastronomy"
+  - "patron saints"
+  - "OpenStreetMap"
+  - "Wikidata"
+  - "medieval churches"
+  - "historical geography"
+  - "urban form"
